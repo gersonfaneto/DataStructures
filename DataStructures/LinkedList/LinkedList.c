@@ -1,9 +1,8 @@
 #include "./LinkedList.h"
-
 #include <stdio.h>
 #include <stdlib.h>
 
-void DisplayContent(LinkedList tList) {
+void DisplayList(LinkedList tList) {
   if (tList.lHead == NULL) {
     printf("[]\n");
   }
@@ -18,7 +17,7 @@ void DisplayContent(LinkedList tList) {
   }
 }
 
-void FreeAll(LinkedList* tList) {
+void FreeList(LinkedList* tList) {
   if (tList -> lHead != NULL) {
     Node* lCursor = tList -> lHead;
     while (lCursor -> pNext != NULL) {
@@ -62,7 +61,7 @@ void InsertBeg(LinkedList* tList, char* tValue) {
 void InsertAt(LinkedList* tList, char* tValue, int tIndex) {
   if (tIndex < 0 || tIndex > (tList -> lSize)) {
     printf("Error: Index out of range!\n");
-    FreeAll(tList);
+    FreeList(tList);
     exit(1);
   }
   else if (tIndex == 0) {
@@ -114,7 +113,7 @@ char* PopEnd(LinkedList* tList) {
   char* removedValue = NULL;
   if (tList -> lHead == NULL) {
     printf("Error: Index out of range!\n");
-    FreeAll(tList);
+    FreeList(tList);
     exit(3);
   }
   else if (tList -> lHead -> pNext == NULL) {
@@ -148,7 +147,7 @@ char* PopBeg(LinkedList* tList) {
 
   if (tList -> lHead == NULL) {
     printf("Error! List Index Out Of Range...\n");
-    FreeAll(tList);
+    FreeList(tList);
     exit(4);
   }
   else  {
@@ -170,7 +169,7 @@ char* PopAt(LinkedList* tList, int targetIndex) {
   if (targetIndex < 0 || targetIndex >= tList -> lSize ||
         tList -> lHead == NULL) {
     printf("Error! List Index Out Of Range...\n");
-    FreeAll(tList);
+    FreeList(tList);
     exit(5);
   }
   else {
@@ -204,8 +203,8 @@ LinkedList LL_Constructor(void) {
   LinkesList.lHead = NULL;
   LinkesList.lSize = 0;
 
-  LinkesList.DisplayContent = DisplayContent;
-  LinkesList.FreeAll = FreeAll;
+  LinkesList.DisplayList = DisplayList;
+  LinkesList.FreeList = FreeList;
   LinkesList.InsertEnd = InsertEnd;
   LinkesList.InsertBeg = InsertBeg;
   LinkesList.InsertAt = InsertAt;

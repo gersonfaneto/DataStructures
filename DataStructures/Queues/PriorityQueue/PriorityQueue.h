@@ -9,11 +9,11 @@ typedef struct PriorityQueue {
 	char pType;
 	int qSize;
 
-	void (*DisplayContent)(struct PriorityQueue tQueue);
-  void (*FreeAll)(struct PriorityQueue* tQueue);
-	void (*Enqueue)(struct PriorityQueue* tQueue, int tValue, int pLevel);
-	int (*Dequeue)(struct PriorityQueue* tQueue);
-  int (*Peek)(struct PriorityQueue tQueue);
+	void (*DisplayPQueue)(struct PriorityQueue tQueue);
+  void (*FreePQueue)(struct PriorityQueue* tQueue);
+	void (*EnqueueP)(struct PriorityQueue* tQueue, int tValue, int pLevel);
+	int (*DequeueP)(struct PriorityQueue* tQueue);
+  int (*PeekP)(struct PriorityQueue tQueue);
 
 } PriorityQueue;
 

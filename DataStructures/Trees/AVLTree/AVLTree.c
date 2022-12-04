@@ -2,18 +2,18 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void FreeAll(AVLNode** tCursor) {
+void FreeTree_AVL(AVLNode** tCursor) {
   if ((*tCursor) != NULL) {
-    FreeAll(&(*tCursor) -> pLeft);
-    FreeAll(&(*tCursor) -> pRight);
+    FreeTree_AVL(&(*tCursor) -> pLeft);
+    FreeTree_AVL(&(*tCursor) -> pRight);
     DestroyAVLNode((*tCursor));
     (*tCursor) = NULL;
   }
 }
 
-void DisplayTree(AVLNode* tCursor, int inLevel) {
+void DisplayTree_AVL(AVLNode* tCursor, int inLevel) {
   if (tCursor != NULL) {
-    DisplayTree(tCursor -> pRight, inLevel + 1);
+    DisplayTree_AVL(tCursor -> pRight, inLevel + 1);
 
     printf("\n");
     for (int i = 0; i < inLevel; i++) {
@@ -22,68 +22,68 @@ void DisplayTree(AVLNode* tCursor, int inLevel) {
 
     printf("%d\n", tCursor -> nValue);
 
-    DisplayTree(tCursor -> pLeft, inLevel + 1);
+    DisplayTree_AVL(tCursor -> pLeft, inLevel + 1);
   }
 }
 
-void DisplayPreOder(AVLNode* tCursor) {
+void DisplayPreOrder_AVL(AVLNode* tCursor) {
   if (tCursor != NULL) {
     printf("%d ", tCursor -> nValue);
-    DisplayPreOder(tCursor -> pLeft);
-    DisplayPreOder(tCursor -> pRight);
+    DisplayPreOrder_AVL(tCursor -> pLeft);
+    DisplayPreOrder_AVL(tCursor -> pRight);
   }
 }
 
-void DisplayInOrder(AVLNode* tCursor) {
+void DisplayInOrder_AVL(AVLNode* tCursor) {
   if (tCursor != NULL) {
-    DisplayInOrder(tCursor -> pLeft);
+    DisplayInOrder_AVL(tCursor -> pLeft);
     printf("%d ", tCursor -> nValue);
-    DisplayInOrder(tCursor -> pRight);
+    DisplayInOrder_AVL(tCursor -> pRight);
   }
 }
 
-void DisplayPostOrder(AVLNode* tCursor) {
+void DisplayPostOrder_AVL(AVLNode* tCursor) {
   if (tCursor != NULL) {
-    DisplayPostOrder(tCursor -> pLeft);
-    DisplayPostOrder(tCursor -> pRight);
+    DisplayPostOrder_AVL(tCursor -> pLeft);
+    DisplayPostOrder_AVL(tCursor -> pRight);
     printf("%d ", tCursor -> nValue);
   }
 }
 
-int GetMin(AVLNode* tCursor) {
+int GetMin_AVL(AVLNode* tCursor) {
   if (tCursor == NULL) {
     return -1;
   }
   else if (tCursor -> pLeft == NULL) {
     return tCursor -> nValue;
   }
-  return GetMin(tCursor -> pLeft);
+  return GetMin_AVL(tCursor -> pLeft);
 }
 
-int GetMax(AVLNode* tCursor) {
+int GetMax_AVL(AVLNode* tCursor) {
   if (tCursor == NULL) {
     return -1;
   }
   else if (tCursor -> pRight == NULL) {
     return tCursor -> nValue;
   }
-  return GetMax(tCursor -> pRight);
+  return GetMax_AVL(tCursor -> pRight);
 }
 
-int QntNodes(AVLNode* tCursor) {
+int QntNodes_AVL(AVLNode* tCursor) {
   if (tCursor == NULL) {
     return 0;
   }
-  return 1 + QntNodes(tCursor -> pLeft) + QntNodes(tCursor -> pRight);
+  return 1 + QntNodes_AVL(tCursor -> pLeft) + QntNodes_AVL(tCursor -> pRight);
 }
 
-int GetHeight(AVLNode* tCursor) {
+int GetHeight_AVL(AVLNode* tCursor) {
   if (tCursor == NULL) {
     return -1;
   }
   else {
-    int leftHeight = GetHeight(tCursor -> pLeft);
-    int rightHeight = GetHeight(tCursor -> pRight);
+    int leftHeight = GetHeight_AVL(tCursor -> pLeft);
+    int rightHeight = GetHeight_AVL(tCursor -> pRight);
     if (leftHeight > rightHeight) {
       return leftHeight + 1;
     }
@@ -101,7 +101,7 @@ int GetBalanceFactor(AVLNode* tNode) {
   if (tNode == NULL) {
     return 0;
   }
-  return GetHeight(tNode -> pLeft) - GetHeight(tNode -> pRight); 
+  return GetHeight_AVL(tNode -> pLeft) - GetHeight_AVL(tNode -> pRight); 
 }
 
 AVLNode* RotateLef(AVLNode* tNode) {
@@ -111,8 +111,8 @@ AVLNode* RotateLef(AVLNode* tNode) {
   A -> pLeft = tNode;
   tNode -> pRight = B;
 
-  tNode -> nHeight = FindMax(GetHeight(tNode -> pLeft), GetHeight(tNode -> pRight)) + 1;
-  A -> nHeight = FindMax(GetHeight(A -> pLeft), GetHeight(A -> pRight)) + 1;
+  tNode -> nHeight = FindMax(GetHeight_AVL(tNode -> pLeft), GetHeight_AVL(tNode -> pRight)) + 1;
+  A -> nHeight = FindMax(GetHeight_AVL(A -> pLeft), GetHeight_AVL(A -> pRight)) + 1;
 
   return A;
 }
@@ -124,13 +124,13 @@ AVLNode* RotateRight(AVLNode* tNode) {
   A -> pRight = tNode;
   tNode -> pLeft = B;
 
-  tNode -> nHeight = 1 + FindMax(GetHeight(tNode -> pLeft), GetHeight(tNode -> pRight));
-  A -> nHeight = 1 + FindMax(GetHeight(A -> pLeft), GetHeight(A -> pRight));
+  tNode -> nHeight = 1 + FindMax(GetHeight_AVL(tNode -> pLeft), GetHeight_AVL(tNode -> pRight));
+  A -> nHeight = 1 + FindMax(GetHeight_AVL(A -> pLeft), GetHeight_AVL(A -> pRight));
   
   return A;
 }
 
-int FindElement(AVLNode* tCursor, int tValue) {
+int FindElement_AVL(AVLNode* tCursor, int tValue) {
   if (tCursor == NULL) {
     return 0;
   }
@@ -139,18 +139,20 @@ int FindElement(AVLNode* tCursor, int tValue) {
   }
   else {
     if (tValue > tCursor -> nValue) {
-      return FindElement(tCursor -> pRight, tValue);
+      return FindElement_AVL(tCursor -> pRight, tValue);
     }
     else {
-      return FindElement(tCursor -> pLeft, tValue);
+      return FindElement_AVL(tCursor -> pLeft, tValue);
     }
   }
 }
 
 void RebalanceNodes(AVLNode** tNode, int tValue) {
-  (*tNode) -> nHeight = 1 + FindMax(GetHeight((*tNode) -> pLeft), 
-      GetHeight((*tNode) -> pRight));
+  (*tNode) -> nHeight = 1 + FindMax(GetHeight_AVL((*tNode) -> pLeft), 
+      GetHeight_AVL((*tNode) -> pRight));
+
   int BalanceFactor = GetBalanceFactor(*tNode);
+
   if (BalanceFactor < -1 && GetBalanceFactor((*tNode) -> pRight) <= 0) {
     (*tNode) = RotateLef(*tNode);
   }
@@ -167,7 +169,7 @@ void RebalanceNodes(AVLNode** tNode, int tValue) {
   }
 }
 
-void InsertElement(AVLNode** tCursor, int tValue) {
+void InsertElement_AVL(AVLNode** tCursor, int tValue) {
   if ((*tCursor) == NULL) {
     (*tCursor) = CreateAVLNode(tValue); 
   }
@@ -179,26 +181,26 @@ void InsertElement(AVLNode** tCursor, int tValue) {
   }
   else {
     if (tValue > (*tCursor) -> nValue) {
-      InsertElement(&(*tCursor) -> pRight, tValue);
+      InsertElement_AVL(&(*tCursor) -> pRight, tValue);
     }
     else {
-      InsertElement(&(*tCursor) -> pLeft, tValue);
+      InsertElement_AVL(&(*tCursor) -> pLeft, tValue);
     }
   }
   RebalanceNodes(tCursor, tValue);
 }
 
-int RemoveElement(AVLNode** tCursor, int tValue) {
+int RemoveElement_AVL(AVLNode** tCursor, int tValue) {
   int currValue = (*tCursor) -> nValue;
   if (*tCursor == NULL) {
     printf("Error: Tree is empty or element wasn't found!\n");
     exit(3);
   }
   else if (tValue > currValue) {
-    return RemoveElement(&(*tCursor) -> pRight, tValue);
+    return RemoveElement_AVL(&(*tCursor) -> pRight, tValue);
   }
   else if (tValue < currValue) {
-    return RemoveElement(&(*tCursor) -> pLeft, tValue);
+    return RemoveElement_AVL(&(*tCursor) -> pLeft, tValue);
   }
   else {
     if ((*tCursor) -> pRight == NULL && (*tCursor) -> pLeft == NULL) {
@@ -215,9 +217,9 @@ int RemoveElement(AVLNode** tCursor, int tValue) {
       DestroyAVLNode(toRemove);
     }
     else {
-      int minValue = GetMin((*tCursor) -> pRight);
+      int minValue = GetMin_AVL((*tCursor) -> pRight);
       (*tCursor) -> nValue = minValue;
-      RemoveElement(&(*tCursor) -> pRight, minValue);
+      RemoveElement_AVL(&(*tCursor) -> pRight, minValue);
     }
 
   }
@@ -233,18 +235,18 @@ AVLTree AVLT_Constructor(void) {
 
   AVLTree.tRoot = NULL;
 
-  AVLTree.FreeAll = FreeAll;
-  AVLTree.DisplayTree = DisplayTree;
-  AVLTree.DisplayPreOrder = DisplayPreOder;
-  AVLTree.DisplayInOrder = DisplayInOrder;
-  AVLTree.DisplayPostOrder = DisplayPostOrder;
-  AVLTree.InsertElement = InsertElement;
-  AVLTree.RemoveElement = RemoveElement;
-  AVLTree.FindElement = FindElement;
-  AVLTree.QntNodes = QntNodes;
-  AVLTree.GetHeight = GetHeight;
-  AVLTree.GetMax = GetMax;
-  AVLTree.GetMin = GetMin;
+  AVLTree.FreeTree_AVL = FreeTree_AVL;
+  AVLTree.DisplayTree_AVL = DisplayTree_AVL;
+  AVLTree.DisplayPreOrder_AVL = DisplayPreOrder_AVL;
+  AVLTree.DisplayInOrder_AVL = DisplayInOrder_AVL;
+  AVLTree.DisplayPostOrder_AVL = DisplayPostOrder_AVL;
+  AVLTree.InsertElement_AVL = InsertElement_AVL;
+  AVLTree.RemoveElement_AVL = RemoveElement_AVL;
+  AVLTree.FindElement_AVL = FindElement_AVL;
+  AVLTree.QntNodes_AVL = QntNodes_AVL;
+  AVLTree.GetHeight_AVL = GetHeight_AVL;
+  AVLTree.GetMax_AVL = GetMax_AVL;
+  AVLTree.GetMin_AVL = GetMin_AVL;
 
   return AVLTree;
 }

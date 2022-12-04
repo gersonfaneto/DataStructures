@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void DisplayContent(PriorityQueue tQueue) {
+void DisplayPQueue(PriorityQueue tQueue) {
 	if (tQueue.qHead == NULL) {	
 		printf("[]\n");
 	}
@@ -17,7 +17,7 @@ void DisplayContent(PriorityQueue tQueue) {
 	}
 }
 
-void FreeAll(PriorityQueue* tQueue) {
+void FreePQueue(PriorityQueue* tQueue) {
   if (tQueue -> qHead != NULL) {
     PriorityNode* qCursor = tQueue -> qHead;
     while (qCursor -> pNext != NULL) {
@@ -31,7 +31,7 @@ void FreeAll(PriorityQueue* tQueue) {
   }
 }
 
-void InsertMinPriority(PriorityQueue* tQueue, int tValue, int pLevel) {
+void EnqueuePMin(PriorityQueue* tQueue, int tValue, int pLevel) {
 	PriorityNode* toInsert = CreatePriorityNode(tValue, pLevel);
 
   if (tQueue -> qHead == NULL) {
@@ -59,7 +59,7 @@ void InsertMinPriority(PriorityQueue* tQueue, int tValue, int pLevel) {
   tQueue -> qSize++;
 }
 
-void InsertMaxPriority(PriorityQueue* tQueue, int tValue, int pLevel) {
+void EnqueuePMax(PriorityQueue* tQueue, int tValue, int pLevel) {
 	PriorityNode* toInsert = CreatePriorityNode(tValue, pLevel);
 
   if (tQueue -> qHead == NULL) {
@@ -87,16 +87,16 @@ void InsertMaxPriority(PriorityQueue* tQueue, int tValue, int pLevel) {
   tQueue -> qSize++;
 }
 
-void InsertPriorityNode(PriorityQueue* tQueue, int tValue, int pLevel) {
+void EnqueueP(PriorityQueue* tQueue, int tValue, int pLevel) {
   if (tQueue -> pType == 'C') {
-    InsertMinPriority(tQueue, tValue, pLevel);
+    EnqueuePMin(tQueue, tValue, pLevel);
   }
   else {
-    InsertMaxPriority(tQueue, tValue, pLevel);
+    EnqueuePMax(tQueue, tValue, pLevel);
   }
 }
 
-int RemovePriorityNode(PriorityQueue* tQueue) {
+int DequeueP(PriorityQueue* tQueue) {
 	if (tQueue -> qHead == NULL) {
 		printf("Error! Index Out Of Range...\n");
     exit(1);
@@ -111,7 +111,7 @@ int RemovePriorityNode(PriorityQueue* tQueue) {
   return removedValue;
 }
 
-int GetFirst(PriorityQueue tQueue) {
+int PeekP(PriorityQueue tQueue) {
   if (tQueue.qHead == NULL) {
     printf("Error: Index out of range!\n");
 		return -1;
@@ -133,11 +133,11 @@ PriorityQueue PQ_Constructor(char pType) {
   PriorityQueue.pType = pType;
 	PriorityQueue.qSize = 0;
 
-	PriorityQueue.DisplayContent = DisplayContent; 
-  PriorityQueue.FreeAll = FreeAll;
-	PriorityQueue.Enqueue = InsertPriorityNode;
-	PriorityQueue.Dequeue = RemovePriorityNode;
-  PriorityQueue.Peek = GetFirst;
+	PriorityQueue.DisplayPQueue = DisplayPQueue; 
+  PriorityQueue.FreePQueue = FreePQueue;
+	PriorityQueue.EnqueueP = EnqueueP;
+	PriorityQueue.DequeueP = DequeueP;
+  PriorityQueue.PeekP = PeekP;
 
 	return PriorityQueue;
 }

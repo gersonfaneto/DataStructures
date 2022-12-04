@@ -8,8 +8,8 @@ typedef struct Queue {
 	Node* qHead;
 	int qSize;
 
-	void (*DisplayContent)(struct Queue tQueue);
-  void (*FreeAll)(struct Queue* tQueue);
+	void (*DisplayQueue)(struct Queue tQueue);
+  void (*FreeQueue)(struct Queue* tQueue);
 	void (*Enqueue)(struct Queue* tQueue, char* tValue);
 	char* (*Dequeue)(struct Queue* tQueue);
   char* (*Peek)(struct Queue tQueue);

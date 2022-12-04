@@ -7,18 +7,18 @@ typedef struct AVLTree {
 
   AVLNode* tRoot;
 
-  void (*FreeAll)(AVLNode** tCursor);
-  void (*DisplayTree)(AVLNode* tCursor, int inLevel);
-  void (*DisplayPreOrder)(AVLNode* tCursor);
-  void (*DisplayInOrder)(AVLNode* tCursor);
-  void (*DisplayPostOrder)(AVLNode* tCursor);
-  void (*InsertElement)(AVLNode** tCursor, int tValue);
-  int (*RemoveElement)(AVLNode** tCursor, int tValue);
-  int (*FindElement)(AVLNode* tCursor, int tValue);
-  int (*GetHeight)(AVLNode* tCursor);
-  int (*QntNodes)(AVLNode* tCursor);
-  int (*GetMin)(AVLNode* tCursor);
-  int (*GetMax)(AVLNode* tCursor);
+  void (*FreeTree_AVL)(AVLNode** tCursor);
+  void (*DisplayTree_AVL)(AVLNode* tCursor, int inLevel);
+  void (*DisplayPreOrder_AVL)(AVLNode* tCursor);
+  void (*DisplayInOrder_AVL)(AVLNode* tCursor);
+  void (*DisplayPostOrder_AVL)(AVLNode* tCursor);
+  void (*InsertElement_AVL)(AVLNode** tCursor, int tValue);
+  int (*RemoveElement_AVL)(AVLNode** tCursor, int tValue);
+  int (*FindElement_AVL)(AVLNode* tCursor, int tValue);
+  int (*GetHeight_AVL)(AVLNode* tCursor);
+  int (*QntNodes_AVL)(AVLNode* tCursor);
+  int (*GetMin_AVL)(AVLNode* tCursor);
+  int (*GetMax_AVL)(AVLNode* tCursor);
 
 } AVLTree;
 

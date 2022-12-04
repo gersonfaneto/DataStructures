@@ -1,9 +1,8 @@
 #include "./Queue.h"
-
 #include <stdio.h>
 #include <stdlib.h>
 
-void DisplayContent(Queue tQueue) {
+void DisplayQueue(Queue tQueue) {
 	if (tQueue.qHead == NULL) {	
 		printf("[]\n");
 	}
@@ -18,7 +17,7 @@ void DisplayContent(Queue tQueue) {
 	}
 }
 
-void FreeAll(Queue* tQueue) {
+void FreeQueue(Queue* tQueue) {
   if (tQueue -> qHead != NULL) {
     Node* qCursor = tQueue -> qHead;
     while (qCursor -> pNext != NULL) {
@@ -32,7 +31,7 @@ void FreeAll(Queue* tQueue) {
   }
 }
 
-void InsertNode(Queue* tQueue, char* tValue) {
+void Enqueue(Queue* tQueue, char* tValue) {
 	Node* toInsert = CreateNode(tValue);
 
   if (tQueue -> qHead == NULL) {
@@ -49,12 +48,12 @@ void InsertNode(Queue* tQueue, char* tValue) {
 	tQueue -> qSize++;
 }
 
-char* RemoveNode(Queue* tQueue) {
+char* Dequeue(Queue* tQueue) {
   char* removedValue = NULL;
 
 	if (tQueue -> qHead == NULL) {
 		printf("Error: Index out of range!\n");
-    FreeAll(tQueue);
+    FreeQueue(tQueue);
     exit(1);
 	}
 	else {
@@ -68,7 +67,7 @@ char* RemoveNode(Queue* tQueue) {
   return removedValue;
 }
 
-char* GetFirst(Queue tQueue) {
+char* Peek(Queue tQueue) {
   if (tQueue.qHead == NULL) {
     printf("Error: Index out of range!\n");
 		return NULL;
@@ -82,11 +81,11 @@ Queue Q_Constructor(void) {
 	Queue.qHead = NULL;
 	Queue.qSize = 0;
 
-	Queue.DisplayContent = DisplayContent; 
-  Queue.FreeAll = FreeAll;
-	Queue.Enqueue = InsertNode;
-	Queue.Dequeue = RemoveNode;
-  Queue.Peek = GetFirst;
+	Queue.DisplayQueue = DisplayQueue; 
+  Queue.FreeQueue = FreeQueue;
+	Queue.Enqueue = Enqueue;
+	Queue.Dequeue = Dequeue;
+  Queue.Peek = Peek;
 
 	return Queue;
 }

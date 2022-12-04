@@ -8,8 +8,8 @@ typedef struct LinkedList {
   Node* lHead;
   int lSize;
 
-  void (*DisplayContent)(struct LinkedList tList);
-  void (*FreeAll)(struct LinkedList* tList);
+  void (*DisplayList)(struct LinkedList tList);
+  void (*FreeList)(struct LinkedList* tList);
   void (*InsertEnd)(struct LinkedList* tList, char* tValue);
   void (*InsertBeg)(struct LinkedList* tList, char* tValue);
   void (*InsertAt)(struct LinkedList* tList, char* tValue, int tIndex);

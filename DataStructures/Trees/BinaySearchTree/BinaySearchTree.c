@@ -2,18 +2,18 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void FreeAll(BinaryNode** tCursor) {
+void FreeTree_Binary(BinaryNode** tCursor) {
   if ((*tCursor) != NULL) {
-    FreeAll(&(*tCursor) -> pLeft);
-    FreeAll(&(*tCursor) -> pRight);
+    FreeTree_Binary(&(*tCursor) -> pLeft);
+    FreeTree_Binary(&(*tCursor) -> pRight);
     DestroyBinaryNode((*tCursor));
     (*tCursor) = NULL;
   }
 }
 
-void DisplayTree(BinaryNode* tCursor, int inLevel) {
+void DisplayTree_Binary(BinaryNode* tCursor, int inLevel) {
   if (tCursor != NULL) {
-    DisplayTree(tCursor -> pRight, inLevel + 1);
+    DisplayTree_Binary(tCursor -> pRight, inLevel + 1);
 
     printf("\n");
     for (int i = 0; i < inLevel; i++) {
@@ -22,35 +22,35 @@ void DisplayTree(BinaryNode* tCursor, int inLevel) {
 
     printf("%d\n", tCursor -> nValue);
 
-    DisplayTree(tCursor -> pLeft, inLevel + 1);
+    DisplayTree_Binary(tCursor -> pLeft, inLevel + 1);
   }
 }
 
-void DisplayPreOder(BinaryNode* tCursor) {
+void DisplayPreOder_Binary(BinaryNode* tCursor) {
   if (tCursor != NULL) {
     printf("%d ", tCursor -> nValue);
-    DisplayPreOder(tCursor -> pLeft);
-    DisplayPreOder(tCursor -> pRight);
+    DisplayPreOder_Binary(tCursor -> pLeft);
+    DisplayPreOder_Binary(tCursor -> pRight);
   }
 }
 
-void DisplayInOrder(BinaryNode* tCursor) {
+void DisplayInOrder_Binary(BinaryNode* tCursor) {
   if (tCursor != NULL) {
-    DisplayInOrder(tCursor -> pLeft);
+    DisplayInOrder_Binary(tCursor -> pLeft);
     printf("%d ", tCursor -> nValue);
-    DisplayInOrder(tCursor -> pRight);
+    DisplayInOrder_Binary(tCursor -> pRight);
   }
 }
 
-void DisplayPostOrder(BinaryNode* tCursor) {
+void DisplayPostOrder_Binary(BinaryNode* tCursor) {
   if (tCursor != NULL) {
-    DisplayPostOrder(tCursor -> pLeft);
-    DisplayPostOrder(tCursor -> pRight);
+    DisplayPostOrder_Binary(tCursor -> pLeft);
+    DisplayPostOrder_Binary(tCursor -> pRight);
     printf("%d ", tCursor -> nValue);
   }
 }
 
-void InsertElement(BinaryNode** tCursor, int tValue) {
+void InsertElement_Binary(BinaryNode** tCursor, int tValue) {
   if ((*tCursor) == NULL) {
     (*tCursor) = CreateBinaryNode(tValue); 
   }
@@ -62,48 +62,48 @@ void InsertElement(BinaryNode** tCursor, int tValue) {
   }
   else {
     if (tValue > (*tCursor) -> nValue) {
-      InsertElement(&(*tCursor) -> pRight, tValue);
+      InsertElement_Binary(&(*tCursor) -> pRight, tValue);
     }
     else {
-      InsertElement(&(*tCursor) -> pLeft, tValue);
+      InsertElement_Binary(&(*tCursor) -> pLeft, tValue);
     }
   }
 }
 
-int GetMin(BinaryNode* tCursor) {
+int GetMin_Binary(BinaryNode* tCursor) {
   if (tCursor == NULL) {
     return -1;
   }
   else if (tCursor -> pLeft == NULL) {
     return tCursor -> nValue;
   }
-  return GetMin(tCursor -> pLeft);
+  return GetMin_Binary(tCursor -> pLeft);
 }
 
-int GetMax(BinaryNode* tCursor) {
+int GetMax_Binary(BinaryNode* tCursor) {
   if (tCursor == NULL) {
     return -1;
   }
   else if (tCursor -> pRight == NULL) {
     return tCursor -> nValue;
   }
-  return GetMax(tCursor -> pRight);
+  return GetMax_Binary(tCursor -> pRight);
 }
 
-int QntNodes(BinaryNode* tCursor) {
+int QntNodes_Binary(BinaryNode* tCursor) {
   if (tCursor == NULL) {
     return 0;
   }
-  return 1 + QntNodes(tCursor -> pLeft) + QntNodes(tCursor -> pRight);
+  return 1 + QntNodes_Binary(tCursor -> pLeft) + QntNodes_Binary(tCursor -> pRight);
 }
 
-int GetHeight(BinaryNode* tCursor) {
+int GetHeight_Binary(BinaryNode* tCursor) {
   if (tCursor == NULL) {
     return -1;
   }
   else {
-    int leftHeight = GetHeight(tCursor -> pLeft);
-    int rightHeight = GetHeight(tCursor -> pRight);
+    int leftHeight = GetHeight_Binary(tCursor -> pLeft);
+    int rightHeight = GetHeight_Binary(tCursor -> pRight);
     if (leftHeight > rightHeight) {
       return leftHeight + 1;
     }
@@ -113,7 +113,7 @@ int GetHeight(BinaryNode* tCursor) {
   }
 }
 
-int FindElement(BinaryNode* tCursor, int tValue) {
+int FindElement_Binary(BinaryNode* tCursor, int tValue) {
   if (tCursor == NULL) {
     return 0;
   }
@@ -122,24 +122,24 @@ int FindElement(BinaryNode* tCursor, int tValue) {
   }
   else {
     if (tValue > tCursor -> nValue) {
-      return FindElement(tCursor -> pRight, tValue);
+      return FindElement_Binary(tCursor -> pRight, tValue);
     }
     else {
-      return FindElement(tCursor -> pLeft, tValue);
+      return FindElement_Binary(tCursor -> pLeft, tValue);
     }
   }
 }
 
-int RemoveElement(BinaryNode** tCursor, int tValue) {
+int RemoveElement_Binary(BinaryNode** tCursor, int tValue) {
   if (*tCursor == NULL) {
     printf("Error: Tree is empty or element wasn't found!\n");
     exit(3);
   }
   else if (tValue > (*tCursor) -> nValue) {
-    return RemoveElement(&(*tCursor) -> pRight, tValue);
+    return RemoveElement_Binary(&(*tCursor) -> pRight, tValue);
   }
   else if (tValue < (*tCursor) -> nValue) {
-    return RemoveElement(&(*tCursor) -> pLeft, tValue);
+    return RemoveElement_Binary(&(*tCursor) -> pLeft, tValue);
   }
   else {
     int removedValue = (*tCursor) -> nValue;
@@ -158,9 +158,9 @@ int RemoveElement(BinaryNode** tCursor, int tValue) {
       DestroyBinaryNode(toRemove);
     }
     else {
-      int minValue = GetMin((*tCursor) -> pRight);
+      int minValue = GetMin_Binary((*tCursor) -> pRight);
       (*tCursor) -> nValue = minValue;
-      RemoveElement(&(*tCursor) -> pRight, minValue);
+      RemoveElement_Binary(&(*tCursor) -> pRight, minValue);
     }
     return removedValue;
   }
@@ -171,18 +171,18 @@ BinarySearchTree BST_Constructor(void) {
 
   BinarySearchTree.tRoot = NULL;
 
-  BinarySearchTree.FreeAll = FreeAll;
-  BinarySearchTree.DisplayTree = DisplayTree;
-  BinarySearchTree.DisplayPreOrder = DisplayPreOder;
-  BinarySearchTree.DisplayInOrder = DisplayInOrder;
-  BinarySearchTree.DisplayPostOrder = DisplayPostOrder;
-  BinarySearchTree.InsertElement = InsertElement;
-  BinarySearchTree.RemoveElement = RemoveElement;
-  BinarySearchTree.FindElement = FindElement;
-  BinarySearchTree.QntNodes = QntNodes;
-  BinarySearchTree.GetHeight = GetHeight;
-  BinarySearchTree.GetMax = GetMax;
-  BinarySearchTree.GetMin = GetMin;
+  BinarySearchTree.FreeAll_Binary = FreeTree_Binary;
+  BinarySearchTree.DisplayTree_Binary = DisplayTree_Binary;
+  BinarySearchTree.DisplayPreOrder_Binary = DisplayPreOder_Binary;
+  BinarySearchTree.DisplayInOrder_Binary = DisplayInOrder_Binary;
+  BinarySearchTree.DisplayPostOrder_Binary = DisplayPostOrder_Binary;
+  BinarySearchTree.InsertElement_Binary = InsertElement_Binary;
+  BinarySearchTree.RemoveElement_Binary = RemoveElement_Binary;
+  BinarySearchTree.FindElement_Binary = FindElement_Binary;
+  BinarySearchTree.QntNodes_Binary = QntNodes_Binary;
+  BinarySearchTree.GetHeight_Binary = GetHeight_Binary;
+  BinarySearchTree.GetMax_Binary = GetMax_Binary;
+  BinarySearchTree.GetMin_Binary = GetMin_Binary;
 
   return BinarySearchTree;
 }
