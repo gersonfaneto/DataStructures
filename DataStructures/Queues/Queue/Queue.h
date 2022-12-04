@@ -10,9 +10,9 @@ typedef struct Queue {
 
 	void (*DisplayContent)(struct Queue tQueue);
   void (*FreeAll)(struct Queue* tQueue);
-	void (*Enqueue)(struct Queue* tQueue, int tValue);
-	int (*Dequeue)(struct Queue* tQueue);
-  int (*Peek)(struct Queue tQueue);
+	void (*Enqueue)(struct Queue* tQueue, char* tValue);
+	char* (*Dequeue)(struct Queue* tQueue);
+  char* (*Peek)(struct Queue tQueue);
 
 } Queue;
 

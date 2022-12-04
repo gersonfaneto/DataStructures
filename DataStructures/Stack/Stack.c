@@ -10,10 +10,10 @@ void DisplayContent(Stack tStack) {
     Node* sCursor = tStack.sHead;
     printf("[");
     while (sCursor -> pNext != NULL) {
-      printf("%d, ", sCursor -> nValue);
+      printf("%s, ", sCursor -> nValue);
       sCursor = sCursor -> pNext;
     }
-    printf("%d]\n", sCursor -> nValue);
+    printf("%s]\n", sCursor -> nValue);
   }
 }
 
@@ -31,7 +31,7 @@ void FreeAll(Stack* tStack) {
   }
 }
 
-void InsertElement(Stack* tStack, int targetValue) {
+void InsertElement(Stack* tStack, char* targetValue) {
   Node* toInsert = CreateNode(targetValue);
   if (tStack -> sHead == NULL) {
     tStack -> sHead = toInsert;
@@ -43,8 +43,8 @@ void InsertElement(Stack* tStack, int targetValue) {
   tStack -> sSize++;
 }
 
-int RemoveElement(Stack* tStack) {
-  int RemovedValue = -1;
+char* RemoveElement(Stack* tStack) {
+  char* RemovedValue = NULL;
 
   if (tStack -> sHead == NULL) {
     printf("Error: Index out of range!\n");
@@ -64,10 +64,10 @@ int RemoveElement(Stack* tStack) {
   return RemovedValue;
 }
 
-int GetTop(Stack tStack) {
+char* GetTop(Stack tStack) {
   if (tStack.sHead == NULL) {
     printf("Error: Index out of range!\n");
-    return -1;
+    return NULL;
   }
   return tStack.sHead -> nValue;
 }
@@ -80,8 +80,8 @@ Stack S_Constructor(void) {
 
   Stack.DisplayContent = DisplayContent;
   Stack.FreeAll = FreeAll;
-  Stack.Insert = InsertElement;
-  Stack.Remove = RemoveElement;
+  Stack.Push = InsertElement;
+  Stack.Pop = RemoveElement;
   Stack.Peek = GetTop;
 
   return Stack;

@@ -9,9 +9,9 @@ typedef struct Stack {
 
   void (*DisplayContent)(struct Stack tStack);
   void (*FreeAll)(struct Stack* tStack);
-  void (*Insert)(struct Stack* tStack, int tValue);
-  int (*Remove)(struct Stack* tStack);
-  int (*Peek)(struct Stack tStack);
+  void (*Push)(struct Stack* tStack, char* tValue);
+  char* (*Pop)(struct Stack* tStack);
+  char* (*Peek)(struct Stack tStack);
 
 } Stack;
 

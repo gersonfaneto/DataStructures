@@ -6,7 +6,7 @@ void FreeAll(BinaryNode** tCursor) {
   if ((*tCursor) != NULL) {
     FreeAll(&(*tCursor) -> pLeft);
     FreeAll(&(*tCursor) -> pRight);
-    DestroyNode((*tCursor));
+    DestroyBinaryNode((*tCursor));
     (*tCursor) = NULL;
   }
 }
@@ -52,13 +52,13 @@ void DisplayPostOrder(BinaryNode* tCursor) {
 
 void InsertElement(BinaryNode** tCursor, int tValue) {
   if ((*tCursor) == NULL) {
-    (*tCursor) = CreateNode(tValue); 
+    (*tCursor) = CreateBinaryNode(tValue); 
   }
   else if ((*tCursor) -> pRight == NULL && tValue > (*tCursor) -> nValue) {
-    (*tCursor) -> pRight = CreateNode(tValue);
+    (*tCursor) -> pRight = CreateBinaryNode(tValue);
   }
   else if ((*tCursor) -> pLeft == NULL && tValue <= (*tCursor) -> nValue) {
-    (*tCursor) -> pLeft = CreateNode(tValue);
+    (*tCursor) -> pLeft = CreateBinaryNode(tValue);
   }
   else {
     if (tValue > (*tCursor) -> nValue) {
@@ -145,17 +145,17 @@ int RemoveElement(BinaryNode** tCursor, int tValue) {
     int removedValue = (*tCursor) -> nValue;
 
     if ((*tCursor) -> pRight == NULL && (*tCursor) -> pLeft == NULL) {
-      DestroyNode((*tCursor)), (*tCursor) = NULL;
+      DestroyBinaryNode((*tCursor)), (*tCursor) = NULL;
     }
     else if ((*tCursor) -> pLeft == NULL) {
       BinaryNode* toRemove = (*tCursor);
       (*tCursor) = (*tCursor) -> pRight;
-      DestroyNode(toRemove);
+      DestroyBinaryNode(toRemove);
     }
     else if ((*tCursor) -> pRight == NULL) {
       BinaryNode* toRemove = (*tCursor);
       (*tCursor) = (*tCursor) -> pLeft;
-      DestroyNode(toRemove);
+      DestroyBinaryNode(toRemove);
     }
     else {
       int minValue = GetMin((*tCursor) -> pRight);

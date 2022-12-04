@@ -23,16 +23,16 @@ void FreeAll(PriorityQueue* tQueue) {
     while (qCursor -> pNext != NULL) {
       PriorityNode* toDestroy = qCursor;
       qCursor = qCursor -> pNext;
-      DestroyNode(toDestroy);
+      DestroyPriorityNode(toDestroy);
     }
-    DestroyNode(qCursor);
+    DestroyPriorityNode(qCursor);
     tQueue -> qHead = NULL;
     tQueue -> qSize = 0;
   }
 }
 
 void InsertMinPriority(PriorityQueue* tQueue, int tValue, int pLevel) {
-	PriorityNode* toInsert = CreateNode(tValue, pLevel);
+	PriorityNode* toInsert = CreatePriorityNode(tValue, pLevel);
 
   if (tQueue -> qHead == NULL) {
     tQueue -> qHead = toInsert;
@@ -60,7 +60,7 @@ void InsertMinPriority(PriorityQueue* tQueue, int tValue, int pLevel) {
 }
 
 void InsertMaxPriority(PriorityQueue* tQueue, int tValue, int pLevel) {
-	PriorityNode* toInsert = CreateNode(tValue, pLevel);
+	PriorityNode* toInsert = CreatePriorityNode(tValue, pLevel);
 
   if (tQueue -> qHead == NULL) {
     tQueue -> qHead = toInsert;

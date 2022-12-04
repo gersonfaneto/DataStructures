@@ -11,10 +11,10 @@ void DisplayContent(Queue tQueue) {
 		Node* qCursor = tQueue.qHead;
 		printf("[");
 		while (qCursor -> pNext != NULL) {
-			printf("%d, ", qCursor -> nValue);
+			printf("%s, ", qCursor -> nValue);
 			qCursor = qCursor -> pNext;
 		}
-		printf("%d]\n", qCursor -> nValue);
+		printf("%s]\n", qCursor -> nValue);
 	}
 }
 
@@ -32,7 +32,7 @@ void FreeAll(Queue* tQueue) {
   }
 }
 
-void InsertNode(Queue* tQueue, int tValue) {
+void InsertNode(Queue* tQueue, char* tValue) {
 	Node* toInsert = CreateNode(tValue);
 
   if (tQueue -> qHead == NULL) {
@@ -49,8 +49,8 @@ void InsertNode(Queue* tQueue, int tValue) {
 	tQueue -> qSize++;
 }
 
-int RemoveNode(Queue* tQueue) {
-  int removedValue = -1;
+char* RemoveNode(Queue* tQueue) {
+  char* removedValue = NULL;
 
 	if (tQueue -> qHead == NULL) {
 		printf("Error: Index out of range!\n");
@@ -68,10 +68,10 @@ int RemoveNode(Queue* tQueue) {
   return removedValue;
 }
 
-int GetFirst(Queue tQueue) {
+char* GetFirst(Queue tQueue) {
   if (tQueue.qHead == NULL) {
     printf("Error: Index out of range!\n");
-		return -1;
+		return NULL;
   }
   return tQueue.qHead -> nValue;
 }

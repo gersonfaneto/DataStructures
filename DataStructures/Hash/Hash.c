@@ -2,11 +2,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void DisplayTable(Hash* toDisplay) {
-  for (unsigned int i = 0; i < toDisplay -> hashSize; i++) {
-    if (toDisplay -> hashTables[i] != NULL) {
+void DisplayTable(Hash toDisplay) {
+  for (unsigned int i = 0; i < toDisplay . hashSize; i++) {
+    if (toDisplay . hashTables[i] != NULL) {
       printf("{%d: [", i + 1);
-      Node* lCursor = toDisplay -> hashTables[i];
+      Node* lCursor = toDisplay . hashTables[i];
       while (lCursor -> pNext != NULL) {
         printf("%s, ", lCursor -> nValue);
         lCursor = lCursor -> pNext;
@@ -81,12 +81,12 @@ char* RemoveNode(Hash* tHash, char* tValue) {
   return removedValue;
 }
 
-char* GetNode(Hash* tHash, char* tValue) {
+char* GetNode(Hash tHash, char* tValue) {
   char* foundValue = NULL;
-  unsigned int hashSize = tHash -> hashSize;
+  unsigned int hashSize = tHash . hashSize;
   unsigned int i = GetHashCode(tValue, hashSize);
 
-  Node* lCursor = tHash -> hashTables[i];
+  Node* lCursor = tHash . hashTables[i];
 
   if (lCursor == NULL || (lCursor -> pNext == NULL && 
       lCursor -> nValue != tValue)) {

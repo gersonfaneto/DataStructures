@@ -11,10 +11,10 @@ void DisplayContent(LinkedList tList) {
     Node* lCursor = tList.lHead;
     printf("[");
     while (lCursor -> pNext != NULL) {
-      printf("%d, ", lCursor -> nValue);
+      printf("%s, ", lCursor -> nValue);
       lCursor = lCursor -> pNext;
     }
-    printf("%d]\n", lCursor -> nValue);
+    printf("%s]\n", lCursor -> nValue);
   }
 }
 
@@ -32,7 +32,7 @@ void FreeAll(LinkedList* tList) {
   }
 }
 
-void InsertEnd(LinkedList* tList, int tValue) {
+void InsertEnd(LinkedList* tList, char* tValue) {
   Node* toInsert = CreateNode(tValue);
   if (tList -> lHead == NULL) {
     tList -> lHead = toInsert;
@@ -47,7 +47,7 @@ void InsertEnd(LinkedList* tList, int tValue) {
   tList -> lSize++;
 }
 
-void InsertBeg(LinkedList* tList, int tValue) {
+void InsertBeg(LinkedList* tList, char* tValue) {
   Node* toInsert = CreateNode(tValue);
   if (tList -> lHead == NULL) {
     tList -> lHead = toInsert;
@@ -59,7 +59,7 @@ void InsertBeg(LinkedList* tList, int tValue) {
   tList -> lSize++;
 }
 
-void InsertAt(LinkedList* tList, int tValue, int tIndex) {
+void InsertAt(LinkedList* tList, char* tValue, int tIndex) {
   if (tIndex < 0 || tIndex > (tList -> lSize)) {
     printf("Error: Index out of range!\n");
     FreeAll(tList);
@@ -83,10 +83,10 @@ void InsertAt(LinkedList* tList, int tValue, int tIndex) {
   tList -> lSize++;
 }
 
-int FindValue(LinkedList tList, int tIndex) {
+char* FindValue(LinkedList tList, int tIndex) {
   if (tIndex < 0 || tIndex > (tList.lSize - 1)) {
     printf("Error: Index out of range!\n");
-    return -1;
+    return NULL;
   }
   Node* lCursor = tList.lHead;
   for (int i = 0; i < tIndex; i++) {
@@ -95,7 +95,7 @@ int FindValue(LinkedList tList, int tIndex) {
   return lCursor -> nValue;
 }
 
-int FindIndex(LinkedList tList, int tValue) {
+int FindIndex(LinkedList tList, char* tValue) {
   if (tList.lHead != NULL) {
     Node* lCursor = tList.lHead;
     int tIndex = 0;
@@ -110,8 +110,8 @@ int FindIndex(LinkedList tList, int tValue) {
   return -1;
 }
 
-int PopEnd(LinkedList* tList) {
-  int removedValue = -1;
+char* PopEnd(LinkedList* tList) {
+  char* removedValue = NULL;
   if (tList -> lHead == NULL) {
     printf("Error: Index out of range!\n");
     FreeAll(tList);
@@ -143,8 +143,8 @@ int PopEnd(LinkedList* tList) {
   return removedValue;
 }
 
-int PopBeg(LinkedList* tList) {
-  int removedValue = -1;
+char* PopBeg(LinkedList* tList) {
+  char* removedValue = NULL;
 
   if (tList -> lHead == NULL) {
     printf("Error! List Index Out Of Range...\n");
@@ -164,8 +164,8 @@ int PopBeg(LinkedList* tList) {
   return removedValue;
 }
 
-int PopAt(LinkedList* tList, int targetIndex) {
-  int removedValue = -1;
+char* PopAt(LinkedList* tList, int targetIndex) {
+  char* removedValue = NULL;
 
   if (targetIndex < 0 || targetIndex >= tList -> lSize ||
         tList -> lHead == NULL) {

@@ -10,14 +10,14 @@ typedef struct LinkedList {
 
   void (*DisplayContent)(struct LinkedList tList);
   void (*FreeAll)(struct LinkedList* tList);
-  void (*InsertEnd)(struct LinkedList* tList, int tValue);
-  void (*InsertBeg)(struct LinkedList* tList, int tValue);
-  void (*InsertAt)(struct LinkedList* tList, int tValue, int tIndex);
-  int (*FindValue)(struct LinkedList tList, int tIndex);
-  int (*FindIndex)(struct LinkedList tList, int tValue);
-  int (*PopEnd)(struct LinkedList* tList);
-  int (*PopBeg)(struct LinkedList* tList);
-  int (*PopAt)(struct LinkedList* tList, int tIndex);
+  void (*InsertEnd)(struct LinkedList* tList, char* tValue);
+  void (*InsertBeg)(struct LinkedList* tList, char* tValue);
+  void (*InsertAt)(struct LinkedList* tList, char* tValue, int tIndex);
+  char* (*FindValue)(struct LinkedList tList, int tIndex);
+  int (*FindIndex)(struct LinkedList tList, char* tValue);
+  char* (*PopEnd)(struct LinkedList* tList);
+  char* (*PopBeg)(struct LinkedList* tList);
+  char* (*PopAt)(struct LinkedList* tList, int tIndex);
 
 } LinkedList;
 

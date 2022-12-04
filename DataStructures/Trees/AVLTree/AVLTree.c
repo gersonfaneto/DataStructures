@@ -6,7 +6,7 @@ void FreeAll(AVLNode** tCursor) {
   if ((*tCursor) != NULL) {
     FreeAll(&(*tCursor) -> pLeft);
     FreeAll(&(*tCursor) -> pRight);
-    DestroyNode((*tCursor));
+    DestroyAVLNode((*tCursor));
     (*tCursor) = NULL;
   }
 }
@@ -169,13 +169,13 @@ void RebalanceNodes(AVLNode** tNode, int tValue) {
 
 void InsertElement(AVLNode** tCursor, int tValue) {
   if ((*tCursor) == NULL) {
-    (*tCursor) = CreateNode(tValue); 
+    (*tCursor) = CreateAVLNode(tValue); 
   }
   else if ((*tCursor) -> pRight == NULL && tValue > (*tCursor) -> nValue) {
-    (*tCursor) -> pRight = CreateNode(tValue);
+    (*tCursor) -> pRight = CreateAVLNode(tValue);
   }
   else if ((*tCursor) -> pLeft == NULL && tValue <= (*tCursor) -> nValue) {
-    (*tCursor) -> pLeft = CreateNode(tValue);
+    (*tCursor) -> pLeft = CreateAVLNode(tValue);
   }
   else {
     if (tValue > (*tCursor) -> nValue) {
@@ -202,17 +202,17 @@ int RemoveElement(AVLNode** tCursor, int tValue) {
   }
   else {
     if ((*tCursor) -> pRight == NULL && (*tCursor) -> pLeft == NULL) {
-      DestroyNode((*tCursor)), (*tCursor) = NULL;
+      DestroyAVLNode((*tCursor)), (*tCursor) = NULL;
     }
     else if ((*tCursor) -> pLeft == NULL) {
       AVLNode* toRemove = (*tCursor);
       (*tCursor) = (*tCursor) -> pRight;
-      DestroyNode(toRemove);
+      DestroyAVLNode(toRemove);
     }
     else if ((*tCursor) -> pRight == NULL) {
       AVLNode* toRemove = (*tCursor);
       (*tCursor) = (*tCursor) -> pLeft;
-      DestroyNode(toRemove);
+      DestroyAVLNode(toRemove);
     }
     else {
       int minValue = GetMin((*tCursor) -> pRight);
