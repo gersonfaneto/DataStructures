@@ -49,3 +49,13 @@
 </div>
 
 <hr>
+
+<div align="left">
+
+  <h3> TODO </h3>
+
+  <ul>
+    <li> Generic Types Support </li>
+  </ul>
+
+</div>
