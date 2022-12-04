@@ -4,7 +4,7 @@
 #include <stdio.h>
 
 void Dijkstra(Graph tGraph, VPathsInfo* vPathsInfo, int sVertice) {
-  PriorityQueue tQueue = PQ_Constructor();
+  PriorityQueue tQueue = PQ_Constructor('C');
   int nVertices = tGraph.nVertices;
 
   GetVPathsInfo(vPathsInfo, tGraph, sVertice);

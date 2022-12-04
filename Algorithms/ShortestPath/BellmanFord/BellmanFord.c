@@ -38,9 +38,11 @@ int BellmanFord(Graph tGraph, VPathsInfo* vPathsInfo, int sVertice) {
     PathRelaxation(tGraph, vPathsInfo, vPairs[i].fValue, vPairs[i].sValue);
     if (vPathsInfo -> vDist[i] != currDist) {
       printf("Negative Cycle Found...The Sortest Path Can't Be Defined!\n");
+      free(vPairs);
       return 0;
     }
   }
 
+  free(vPairs);
   return 1;
 }
