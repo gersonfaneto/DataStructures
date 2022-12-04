@@ -17,7 +17,7 @@ void GetVPathsInfo(VPathsInfo* vPathsInfo, Graph tGraph, int sVertice) {
 
 void GetPQueue(PriorityQueue* tQueue, VPathsInfo vPathsInfo, int nVertices) {
   for (int i = 0; i < nVertices; i++) {
-    tQueue -> Enqueue(tQueue, i, vPathsInfo.vDist[i]);
+    tQueue -> EnqueueP(tQueue, i, vPathsInfo.vDist[i]);
   }
 }
 
@@ -49,11 +49,11 @@ void UpdateQueue(PriorityQueue* tQueue, VPathsInfo vPathsInfo) {
   int qSize = tQueue -> qSize;
 
   for (int i = 0; i < qSize; i++) {
-    rVertices[i] = tQueue -> Dequeue(tQueue);
+    rVertices[i] = tQueue -> DequeueP(tQueue);
   }
 
   for (int j = 0; j < qSize; j++) {
-    tQueue -> Enqueue(tQueue, rVertices[j], vPathsInfo.vDist[rVertices[j]]);
+    tQueue -> EnqueueP(tQueue, rVertices[j], vPathsInfo.vDist[rVertices[j]]);
   }
 
   free(rVertices);
@@ -113,7 +113,7 @@ void TopologicalSort(VColorsInfo* vColorsInfo, int nVertices) {
 }
 
 void ClearVPathsInfo(VPathsInfo* vPathsInfo) {
-  if (vPathsInfo -> maxWeight = 0) {
+  if (vPathsInfo -> maxWeight == 0) {
     return;
   }
   free(vPathsInfo -> vDist);

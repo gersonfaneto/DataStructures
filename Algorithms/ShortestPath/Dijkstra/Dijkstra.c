@@ -11,7 +11,7 @@ void Dijkstra(Graph tGraph, VPathsInfo* vPathsInfo, int sVertice) {
   GetPQueue(&tQueue, *vPathsInfo, nVertices);
 
   while (tQueue.qSize != 0) {
-    int currV = tQueue.Dequeue(&tQueue);
+    int currV = tQueue.DequeueP(&tQueue);
     int* adjList = tGraph.GetAdjList(tGraph, currV);
 
     for (int i = 0; i < nVertices; i++) {
@@ -23,5 +23,5 @@ void Dijkstra(Graph tGraph, VPathsInfo* vPathsInfo, int sVertice) {
     UpdateQueue(&tQueue, *vPathsInfo);
   }
 
-  tQueue.FreeAll(&tQueue);
+  tQueue.FreePQueue(&tQueue);
 }
