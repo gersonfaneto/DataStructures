@@ -9,8 +9,8 @@ typedef struct Hash {
   int hashSize;
   int hashPopulation;
 
-  void (*DisplayTable)(struct Hash tHash);
-  void (*FreeAll)(struct Hash* tHash);
+  void (*DisplayHash)(struct Hash tHash);
+  void (*FreeHash)(struct Hash* tHash);
   void (*Insert)(struct Hash* tHash, char* tValue);
   char* (*Remove)(struct Hash* tHash, char* tValue);
   char* (*Find)(struct Hash tHash, char* tValue);

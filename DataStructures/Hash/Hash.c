@@ -1,12 +1,13 @@
 #include "./Hash.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
-void DisplayTable(Hash toDisplay) {
-  for (unsigned int i = 0; i < toDisplay . hashSize; i++) {
-    if (toDisplay . hashTables[i] != NULL) {
+void DisplayHash(Hash tHash) {
+  for (unsigned int i = 0; i < tHash . hashSize; i++) {
+    if (tHash . hashTables[i] != NULL) {
       printf("{%d: [", i + 1);
-      Node* lCursor = toDisplay . hashTables[i];
+      Node* lCursor = tHash . hashTables[i];
       while (lCursor -> pNext != NULL) {
         printf("%s, ", lCursor -> nValue);
         lCursor = lCursor -> pNext;
@@ -16,7 +17,7 @@ void DisplayTable(Hash toDisplay) {
   }
 }
 
-void FreeAll(Hash* tHash) {
+void FreeHash(Hash* tHash) {
   for (unsigned int i = 0; i < tHash -> hashSize; i++) {
     Node* lCursor = tHash -> hashTables[i];
     while (lCursor != NULL) {
@@ -28,7 +29,7 @@ void FreeAll(Hash* tHash) {
   free(tHash -> hashTables);
 }
 
-void InsertNode(Hash* tHash, char* tValue) {
+void Insert(Hash* tHash, char* tValue) {
   Node* toInsert = CreateNode(tValue);
   unsigned int hashSize = tHash -> hashSize;
   unsigned int i = GetHashCode(tValue, hashSize);
@@ -43,37 +44,33 @@ void InsertNode(Hash* tHash, char* tValue) {
   }
 }
 
-char* RemoveNode(Hash* tHash, char* tValue) {
+char* Remove(Hash* tHash, char* tValue) {
   char* removedValue = NULL;
   unsigned int hashSize = tHash -> hashSize;
   unsigned int i = GetHashCode(tValue, hashSize);
 
   Node* lCursor = tHash -> hashTables[i];
 
-  if (lCursor == NULL || (lCursor -> pNext == NULL && 
-      lCursor -> nValue != tValue)) {
+  if (lCursor == NULL || (lCursor -> pNext == NULL && \
+        strcmp(lCursor -> nValue, tValue) != 0)) {
     printf("Error: Key not found!\n");
     exit(1);
   }
-  else if (lCursor -> nValue == tValue) {
+  else if (strcmp(lCursor -> nValue, tValue) == 0) {
     Node* removedNode = lCursor;
     removedValue = lCursor -> nValue; 
     tHash -> hashTables[i] = removedNode -> pNext;
     DestroyNode(removedNode);
   }
   else {
-    while (lCursor -> pNext -> pNext != NULL 
-        && lCursor -> nValue != tValue) {
+    while (lCursor -> pNext -> pNext != NULL || \
+        strcmp(lCursor -> pNext -> nValue, tValue) != 0) {
       lCursor = lCursor -> pNext;
     }
-
-    if (lCursor -> pNext -> nValue == tValue) {
-      Node* removedNode = lCursor -> pNext;
-      removedValue = removedNode -> nValue;
-      removedValue = removedNode -> nValue;
-      lCursor -> pNext = removedNode -> pNext;
-      DestroyNode(removedNode);
-    }
+    Node* removedNode = lCursor -> pNext;
+    removedValue = removedNode -> nValue;
+    removedValue = removedNode -> nValue;
+    lCursor -> pNext = removedNode -> pNext;
   }
 
   tHash -> hashPopulation--;
@@ -81,20 +78,21 @@ char* RemoveNode(Hash* tHash, char* tValue) {
   return removedValue;
 }
 
-char* GetNode(Hash tHash, char* tValue) {
+char* Find(Hash tHash, char* tValue) {
   char* foundValue = NULL;
   unsigned int hashSize = tHash . hashSize;
   unsigned int i = GetHashCode(tValue, hashSize);
 
-  Node* lCursor = tHash . hashTables[i];
+  Node* lCursor = tHash.hashTables[i];
 
   if (lCursor == NULL || (lCursor -> pNext == NULL && 
-      lCursor -> nValue != tValue)) {
+      strcmp(lCursor -> nValue, tValue) != 0)) {
     printf("Error! Key Not Found...\n");
     exit(2);
   }
 
-  while (lCursor -> pNext != NULL && lCursor -> nValue != tValue) {
+  while (lCursor -> pNext != NULL && \
+      strcmp(lCursor -> nValue, tValue) != 0) {
     lCursor = lCursor -> pNext;
   }
 
@@ -126,12 +124,12 @@ Hash RehashTable(Hash* tHash) {
       while (lCursor != NULL) {
         char* toRealoc = lCursor -> nValue;
         lCursor = lCursor -> pNext;
-        InsertNode(&reHashed, toRealoc);
-        RemoveNode(tHash, toRealoc);
+        Insert(&reHashed, toRealoc);
+        Remove(tHash, toRealoc);
       }
   }
 
-  tHash -> FreeAll(tHash);
+  tHash -> FreeHash(tHash);
 
   return reHashed;
 }
@@ -146,11 +144,11 @@ Hash H_Constructor(unsigned int hashSize) {
   
   Hash.hashPopulation = 0;
   Hash.hashSize = hashSize;
-  Hash.Find = GetNode;
-  Hash.Insert = InsertNode;
-  Hash.Remove = RemoveNode;
-  Hash.DisplayTable = DisplayTable;
-  Hash.FreeAll = FreeAll;
+  Hash.Find = Find;
+  Hash.Insert = Insert;
+  Hash.Remove = Remove;
+  Hash.DisplayHash = DisplayHash;
+  Hash.FreeHash = FreeHash;
 
   return Hash;
 }
