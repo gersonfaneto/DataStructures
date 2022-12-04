@@ -37,7 +37,7 @@ void InsertPriorityNode(PriorityQueue* tQueue, int tValue, int pLevel) {
   if (tQueue -> qHead == NULL) {
     tQueue -> qHead = toInsert;
   }
-  else if (tQueue -> qHead -> pLevel < pLevel) {
+  else if (tQueue -> qHead -> pLevel > pLevel) {
     toInsert -> pNext = tQueue -> qHead;
     tQueue -> qHead = toInsert;
   }
@@ -45,7 +45,7 @@ void InsertPriorityNode(PriorityQueue* tQueue, int tValue, int pLevel) {
     PriorityNode* qCursor = tQueue -> qHead;
     while (qCursor -> pNext != NULL)
   {
-    if (qCursor -> pNext -> pLevel < pLevel) {
+    if (qCursor -> pNext -> pLevel > pLevel) {
       toInsert -> pNext = qCursor -> pNext;
       qCursor -> pNext = toInsert;
       tQueue -> qSize++;
@@ -60,18 +60,16 @@ void InsertPriorityNode(PriorityQueue* tQueue, int tValue, int pLevel) {
 }
 
 int RemovePriorityNode(PriorityQueue* tQueue) {
-  int removedValue = -1;
-
 	if (tQueue -> qHead == NULL) {
 		printf("Error! Index Out Of Range...\n");
     exit(1);
 	}
-	else {
-		PriorityNode* newHead = tQueue -> qHead;
-		tQueue -> qHead = newHead -> pNext;
-		free(newHead);
-		tQueue -> qSize--;
-	}
+
+  PriorityNode* removedNode = tQueue -> qHead;
+  int removedValue = removedNode -> nValue;
+  tQueue -> qHead = removedNode -> pNext;
+  free(removedNode);
+  tQueue -> qSize--;
 
   return removedValue;
 }

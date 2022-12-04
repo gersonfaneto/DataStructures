@@ -176,30 +176,30 @@ void FreeGraph(Graph* tGraph) {
 }
 
 Graph G_Constructor(int nVertices) {
-  Graph newGraph;
+  Graph Graph;
 
-  newGraph.nVertices = nVertices;
-  newGraph.nEdges = 0;
+  Graph.nVertices = nVertices;
+  Graph.nEdges = 0;
   
-  newGraph.AdjMatrix = (int**) malloc(nVertices * sizeof(int*));
+  Graph.AdjMatrix = (int**) malloc(nVertices * sizeof(int*));
   for (int i = 0; i < nVertices; i++) {
-    newGraph.AdjMatrix[i] = (int*) malloc(nVertices * sizeof(int));
+    Graph.AdjMatrix[i] = (int*) malloc(nVertices * sizeof(int));
   }
 
-  newGraph.InsertEdge = InsertEdge;
-  newGraph.RemoveEdge = RemoveEdge;
-  newGraph.HasEdge = HasEdge;
-  newGraph.DisplayAdjMatrix = DisplayAdjMatrix;
-  newGraph.FreeGraph = FreeGraph;
-  newGraph.ClearEdges = ClearEdges;
+  Graph.InsertEdge = InsertEdge;
+  Graph.RemoveEdge = RemoveEdge;
+  Graph.HasEdge = HasEdge;
+  Graph.DisplayAdjMatrix = DisplayAdjMatrix;
+  Graph.FreeGraph = FreeGraph;
+  Graph.ClearEdges = ClearEdges;
 
-  newGraph.VerticeDegree = VerticeDegree;
-  newGraph.VerticeInDegree = VerticeInDegree;
-  newGraph.VerticeOutDegree = VerticeOutDegree;
-  newGraph.MaxGraphDegree = MaxGraphDegree;
-  newGraph. MinGraphDegree = MinGraphDegree;
-  newGraph.IsPath = IsPath;
-  newGraph.GetAdjList = GetAdjList;
+  Graph.VerticeDegree = VerticeDegree;
+  Graph.VerticeInDegree = VerticeInDegree;
+  Graph.VerticeOutDegree = VerticeOutDegree;
+  Graph.MaxGraphDegree = MaxGraphDegree;
+  Graph.MinGraphDegree = MinGraphDegree;
+  Graph.IsPath = IsPath;
+  Graph.GetAdjList = GetAdjList;
 
-  return newGraph;
+  return Graph;
 }

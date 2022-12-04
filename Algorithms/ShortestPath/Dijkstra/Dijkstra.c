@@ -1,6 +1,7 @@
 #include "./Dijkstra.h"
 
 #include <stdlib.h>
+#include <stdio.h>
 
 void Dijkstra(Graph tGraph, VPathsInfo* vPathsInfo, int sVertice) {
   PriorityQueue tQueue = PQ_Constructor();
