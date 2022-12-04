@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-BinaryNode* CreateNode(int tValue) {
+BinaryNode* CreateBinaryNode(int tValue) {
   BinaryNode* newNode = (BinaryNode*) malloc(sizeof(BinaryNode));
 
   if (newNode == NULL) {
@@ -17,7 +17,7 @@ BinaryNode* CreateNode(int tValue) {
   return newNode;
 }
 
-void DestroyNode(BinaryNode* tNode) {
+void DestroyBinaryNode(BinaryNode* tNode) {
   if (tNode == NULL) {
     printf("Error: Memory out of reach!\n");
     exit(2);

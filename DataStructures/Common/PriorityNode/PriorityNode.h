@@ -9,7 +9,7 @@ typedef struct PriorityNode {
 
 } PriorityNode;
 
-PriorityNode* CreateNode(int tValue, int pLevel);
-void DestroyNode(PriorityNode* tNode);
+PriorityNode* CreatePriorityNode(int tValue, int pLevel);
+void DestroyPriorityNode(PriorityNode* tNode);
 
 #endif 

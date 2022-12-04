@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-AVLNode* CreateNode(int tValue) {
+AVLNode* CreateAVLNode(int tValue) {
   AVLNode* newNode = (AVLNode*) malloc(sizeof(AVLNode));
 
   if (newNode == NULL) {
@@ -18,7 +18,7 @@ AVLNode* CreateNode(int tValue) {
   return newNode;
 }
 
-void DestroyNode(AVLNode* tNode) {
+void DestroyAVLNode(AVLNode* tNode) {
   if (tNode == NULL) {
     printf("Error: Memory out of reach!\n");
     exit(2);

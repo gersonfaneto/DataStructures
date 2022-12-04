@@ -9,7 +9,7 @@ typedef struct BinaryNode {
 
 } BinaryNode;
 
-BinaryNode* CreateNode(int tValue);
-void DestroyNode(BinaryNode* tNode);
+BinaryNode* CreateBinaryNode(int tValue);
+void DestroyBinaryNode(BinaryNode* tNode);
 
 #endif 

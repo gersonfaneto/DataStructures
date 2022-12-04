@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-PriorityNode* CreateNode(int tValue, int pLevel) {
+PriorityNode* CreatePriorityNode(int tValue, int pLevel) {
   PriorityNode* newNode = (PriorityNode*) malloc(sizeof(PriorityNode));
 
   if (newNode == NULL) {
@@ -17,7 +17,7 @@ PriorityNode* CreateNode(int tValue, int pLevel) {
   return newNode;
 }
 
-void DestroyNode(PriorityNode* tNode) {
+void DestroyPriorityNode(PriorityNode* tNode) {
   if (tNode == NULL) {
     printf("Error: Memory out of reach!\n");
     exit(2);

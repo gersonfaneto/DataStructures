@@ -10,7 +10,7 @@ typedef struct AVLNode {
 
 } AVLNode;
 
-AVLNode* CreateNode(int tValue);
-void DestroyNode(AVLNode* tNode);
+AVLNode* CreateAVLNode(int tValue);
+void DestroyAVLNode(AVLNode* tNode);
 
 #endif
