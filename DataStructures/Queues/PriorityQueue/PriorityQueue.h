@@ -6,6 +6,7 @@
 typedef struct PriorityQueue {
 
 	PriorityNode* qHead;
+	char pType;
 	int qSize;
 
 	void (*DisplayContent)(struct PriorityQueue tQueue);
@@ -16,6 +17,6 @@ typedef struct PriorityQueue {
 
 } PriorityQueue;
 
-PriorityQueue PQ_Constructor(void);
+PriorityQueue PQ_Constructor(char pType);
 
 #endif 

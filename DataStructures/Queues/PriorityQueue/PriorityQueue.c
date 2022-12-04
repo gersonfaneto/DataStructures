@@ -31,7 +31,7 @@ void FreeAll(PriorityQueue* tQueue) {
   }
 }
 
-void InsertPriorityNode(PriorityQueue* tQueue, int tValue, int pLevel) {
+void InsertMinPriority(PriorityQueue* tQueue, int tValue, int pLevel) {
 	PriorityNode* toInsert = CreateNode(tValue, pLevel);
 
   if (tQueue -> qHead == NULL) {
@@ -59,6 +59,43 @@ void InsertPriorityNode(PriorityQueue* tQueue, int tValue, int pLevel) {
   tQueue -> qSize++;
 }
 
+void InsertMaxPriority(PriorityQueue* tQueue, int tValue, int pLevel) {
+	PriorityNode* toInsert = CreateNode(tValue, pLevel);
+
+  if (tQueue -> qHead == NULL) {
+    tQueue -> qHead = toInsert;
+  }
+  else if (tQueue -> qHead -> pLevel < pLevel) {
+    toInsert -> pNext = tQueue -> qHead;
+    tQueue -> qHead = toInsert;
+  }
+  else {
+    PriorityNode* qCursor = tQueue -> qHead;
+    while (qCursor -> pNext != NULL)
+  {
+    if (qCursor -> pNext -> pLevel < pLevel) {
+      toInsert -> pNext = qCursor -> pNext;
+      qCursor -> pNext = toInsert;
+      tQueue -> qSize++;
+      return;
+    }
+    qCursor = qCursor -> pNext;
+  }
+  qCursor -> pNext = toInsert;
+  }
+  
+  tQueue -> qSize++;
+}
+
+void InsertPriorityNode(PriorityQueue* tQueue, int tValue, int pLevel) {
+  if (tQueue -> pType == 'C') {
+    InsertMinPriority(tQueue, tValue, pLevel);
+  }
+  else {
+    InsertMaxPriority(tQueue, tValue, pLevel);
+  }
+}
+
 int RemovePriorityNode(PriorityQueue* tQueue) {
 	if (tQueue -> qHead == NULL) {
 		printf("Error! Index Out Of Range...\n");
@@ -82,10 +119,18 @@ int GetFirst(PriorityQueue tQueue) {
   return tQueue.qHead -> nValue;
 }
 
-PriorityQueue PQ_Constructor(void) {
+PriorityQueue PQ_Constructor(char pType) {
 	PriorityQueue PriorityQueue;
 
+  if (pType != 'C' && pType != 'D') {
+    printf("Error: Priority Type value isn't valid!\n");
+    printf("Use: 'C' for Crescent/Min Priority\n");
+    printf("     'D' for Decrescent/Max Priority\n");
+    exit(2);
+  }
+
 	PriorityQueue.qHead = NULL;
+  PriorityQueue.pType = pType;
 	PriorityQueue.qSize = 0;
 
 	PriorityQueue.DisplayContent = DisplayContent; 
