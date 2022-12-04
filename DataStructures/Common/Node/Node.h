@@ -3,12 +3,12 @@
 
 typedef struct Node {
 
-  int nValue;
+  char* nValue;
   struct Node* pNext;
 
 } Node;
 
-Node* CreateNode(int tValue);
+Node* CreateNode(char* tValue);
 void DestroyNode(Node* tNode);
 
 #endif 

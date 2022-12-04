@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-Node* CreateNode(int tValue) {
+Node* CreateNode(char* tValue) {
   Node* newNode = (Node*) malloc(sizeof(Node));
 
   if (newNode == NULL) {
