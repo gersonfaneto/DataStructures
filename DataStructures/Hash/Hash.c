@@ -69,8 +69,8 @@ char* Remove(Hash* tHash, char* tValue) {
     }
     Node* removedNode = lCursor -> pNext;
     removedValue = removedNode -> nValue;
-    removedValue = removedNode -> nValue;
     lCursor -> pNext = removedNode -> pNext;
+    DestroyNode(removedNode);
   }
 
   tHash -> hashPopulation--;
