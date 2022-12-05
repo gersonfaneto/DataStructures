@@ -1,15 +1,9 @@
 <div align="center">
-  
   <h1>Data Structures 💾</h1>
-
 </div>
 
-</br>
-
 <div align="left">
-
   <h3> Data Structures </h3>
-
   <ul>
     <li> Linked List </li>
     <li> Stack </li>
@@ -20,15 +14,12 @@
     <li> AVL Tree </li>
     <li> Binary Search Tree </li>
   </ul>
-
 </div>
 
 <hr>
 
 <div align="left">
-
   <h3> Algorithms </h3>
-
   <ul>
     <li> Sorting </li>
     <ul>
@@ -45,17 +36,13 @@
       <li> D.A.G </li>
     </ul>
   </ul>
-
 </div>
 
 <hr>
 
 <div align="left">
-
   <h3> TODO </h3>
-
-  <ul>
+  <ul style="list-style-type='square';">
     <li> Generic Types Support </li>
   </ul>
-
 </div>
