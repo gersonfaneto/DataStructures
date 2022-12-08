@@ -10,9 +10,9 @@
     <li> Queue </li>
     <li> Priority Queue </li>
     <li> Hash </li>
-    <li> Graph </li>
-    <li> AVL Tree </li>
     <li> Binary Search Tree </li>
+    <li> AVL Tree </li>
+    <li> Graph </li>
   </ul>
 </div>
 
@@ -35,14 +35,5 @@
       <li> Bellman-Ford </li>
       <li> D.A.G </li>
     </ul>
-  </ul>
-</div>
-
-<hr>
-
-<div align="left">
-  <h3> TODO </h3>
-  <ul style="list-style-type='square';">
-    <li> Generic Types Support </li>
   </ul>
 </div>
