@@ -2,21 +2,21 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-Node* CreateNode(char* tValue) {
-  Node* newNode = (Node*) malloc(sizeof(Node));
+Node *CreateNode(char *tValue) {
+  Node *newNode = (Node *)malloc(sizeof(Node));
 
   if (newNode == NULL) {
     printf("Error: Couldn´t create a new Node!\n");
     exit(1);
   }
 
-  newNode -> nValue = tValue;
-  newNode -> pNext = NULL;
-  
+  newNode->nValue = tValue;
+  newNode->pNext = NULL;
+
   return newNode;
 }
 
-void DestroyNode(Node* tNode) {
+void DestroyNode(Node *tNode) {
   if (tNode == NULL) {
     printf("Error: Memory out of reach!\n");
     exit(2);

@@ -5,20 +5,20 @@
 
 typedef struct Hash {
 
-  Node** hashTables;
+  Node **hashTables;
   int hashSize;
   int hashPopulation;
 
   void (*DisplayHash)(struct Hash tHash);
-  void (*FreeHash)(struct Hash* tHash);
-  void (*Insert)(struct Hash* tHash, char* tValue);
-  char* (*Remove)(struct Hash* tHash, char* tValue);
-  char* (*Find)(struct Hash tHash, char* tValue);
+  void (*FreeHash)(struct Hash *tHash);
+  void (*Insert)(struct Hash *tHash, char *tValue);
+  char *(*Remove)(struct Hash *tHash, char *tValue);
+  char *(*Find)(struct Hash tHash, char *tValue);
 
 } Hash;
 
-unsigned int GetHashCode(char* tValue, unsigned int hashSize);
+unsigned int GetHashCode(char *tValue, unsigned int hashSize);
 Hash H_Constructor(unsigned int hashSize);
-Hash RehashTable(Hash* tHash);
+Hash RehashTable(Hash *tHash);
 
 #endif

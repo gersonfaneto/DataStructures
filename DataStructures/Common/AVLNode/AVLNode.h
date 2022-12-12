@@ -5,12 +5,12 @@ typedef struct AVLNode {
 
   int nValue;
   int nHeight;
-  struct AVLNode* pRight;
-  struct AVLNode* pLeft;
+  struct AVLNode *pRight;
+  struct AVLNode *pLeft;
 
 } AVLNode;
 
-AVLNode* CreateAVLNode(int tValue);
-void DestroyAVLNode(AVLNode* tNode);
+AVLNode *CreateAVLNode(int tValue);
+void DestroyAVLNode(AVLNode *tNode);
 
 #endif

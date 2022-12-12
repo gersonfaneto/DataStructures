@@ -4,12 +4,12 @@
 typedef struct BinaryNode {
 
   int nValue;
-  struct BinaryNode* pRight;
-  struct BinaryNode* pLeft;
+  struct BinaryNode *pRight;
+  struct BinaryNode *pLeft;
 
 } BinaryNode;
 
-BinaryNode* CreateBinaryNode(int tValue);
-void DestroyBinaryNode(BinaryNode* tNode);
+BinaryNode *CreateBinaryNode(int tValue);
+void DestroyBinaryNode(BinaryNode *tNode);
 
-#endif 
+#endif

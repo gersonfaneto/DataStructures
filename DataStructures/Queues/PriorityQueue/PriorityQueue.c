@@ -3,110 +3,102 @@
 #include <stdlib.h>
 
 void DisplayPQueue(PriorityQueue tQueue) {
-	if (tQueue.qHead == NULL) {	
-		printf("[]\n");
-	}
-	else {
-		PriorityNode* qCursor = tQueue.qHead;
-		printf("[");
-		while (qCursor -> pNext != NULL) {
-			printf("%d, ", qCursor -> nValue);
-			qCursor = qCursor -> pNext;
-		}
-		printf("%d]\n", qCursor -> nValue);
-	}
+  if (tQueue.qHead == NULL) {
+    printf("[]\n");
+  } else {
+    PriorityNode *qCursor = tQueue.qHead;
+    printf("[");
+    while (qCursor->pNext != NULL) {
+      printf("%d, ", qCursor->nValue);
+      qCursor = qCursor->pNext;
+    }
+    printf("%d]\n", qCursor->nValue);
+  }
 }
 
-void FreePQueue(PriorityQueue* tQueue) {
-  if (tQueue -> qHead != NULL) {
-    PriorityNode* qCursor = tQueue -> qHead;
-    while (qCursor -> pNext != NULL) {
-      PriorityNode* toDestroy = qCursor;
-      qCursor = qCursor -> pNext;
+void FreePQueue(PriorityQueue *tQueue) {
+  if (tQueue->qHead != NULL) {
+    PriorityNode *qCursor = tQueue->qHead;
+    while (qCursor->pNext != NULL) {
+      PriorityNode *toDestroy = qCursor;
+      qCursor = qCursor->pNext;
       DestroyPriorityNode(toDestroy);
     }
     DestroyPriorityNode(qCursor);
-    tQueue -> qHead = NULL;
-    tQueue -> qSize = 0;
+    tQueue->qHead = NULL;
+    tQueue->qSize = 0;
   }
 }
 
-void EnqueuePMin(PriorityQueue* tQueue, int tValue, int pLevel) {
-	PriorityNode* toInsert = CreatePriorityNode(tValue, pLevel);
+void EnqueuePMin(PriorityQueue *tQueue, int tValue, int pLevel) {
+  PriorityNode *toInsert = CreatePriorityNode(tValue, pLevel);
 
-  if (tQueue -> qHead == NULL) {
-    tQueue -> qHead = toInsert;
-  }
-  else if (tQueue -> qHead -> pLevel > pLevel) {
-    toInsert -> pNext = tQueue -> qHead;
-    tQueue -> qHead = toInsert;
-  }
-  else {
-    PriorityNode* qCursor = tQueue -> qHead;
-    while (qCursor -> pNext != NULL)
-  {
-    if (qCursor -> pNext -> pLevel > pLevel) {
-      toInsert -> pNext = qCursor -> pNext;
-      qCursor -> pNext = toInsert;
-      tQueue -> qSize++;
-      return;
+  if (tQueue->qHead == NULL) {
+    tQueue->qHead = toInsert;
+  } else if (tQueue->qHead->pLevel > pLevel) {
+    toInsert->pNext = tQueue->qHead;
+    tQueue->qHead = toInsert;
+  } else {
+    PriorityNode *qCursor = tQueue->qHead;
+    while (qCursor->pNext != NULL) {
+      if (qCursor->pNext->pLevel > pLevel) {
+        toInsert->pNext = qCursor->pNext;
+        qCursor->pNext = toInsert;
+        tQueue->qSize++;
+        return;
+      }
+      qCursor = qCursor->pNext;
     }
-    qCursor = qCursor -> pNext;
+    qCursor->pNext = toInsert;
   }
-  qCursor -> pNext = toInsert;
-  }
-  
-  tQueue -> qSize++;
+
+  tQueue->qSize++;
 }
 
-void EnqueuePMax(PriorityQueue* tQueue, int tValue, int pLevel) {
-	PriorityNode* toInsert = CreatePriorityNode(tValue, pLevel);
+void EnqueuePMax(PriorityQueue *tQueue, int tValue, int pLevel) {
+  PriorityNode *toInsert = CreatePriorityNode(tValue, pLevel);
 
-  if (tQueue -> qHead == NULL) {
-    tQueue -> qHead = toInsert;
-  }
-  else if (tQueue -> qHead -> pLevel < pLevel) {
-    toInsert -> pNext = tQueue -> qHead;
-    tQueue -> qHead = toInsert;
-  }
-  else {
-    PriorityNode* qCursor = tQueue -> qHead;
-    while (qCursor -> pNext != NULL)
-  {
-    if (qCursor -> pNext -> pLevel < pLevel) {
-      toInsert -> pNext = qCursor -> pNext;
-      qCursor -> pNext = toInsert;
-      tQueue -> qSize++;
-      return;
+  if (tQueue->qHead == NULL) {
+    tQueue->qHead = toInsert;
+  } else if (tQueue->qHead->pLevel < pLevel) {
+    toInsert->pNext = tQueue->qHead;
+    tQueue->qHead = toInsert;
+  } else {
+    PriorityNode *qCursor = tQueue->qHead;
+    while (qCursor->pNext != NULL) {
+      if (qCursor->pNext->pLevel < pLevel) {
+        toInsert->pNext = qCursor->pNext;
+        qCursor->pNext = toInsert;
+        tQueue->qSize++;
+        return;
+      }
+      qCursor = qCursor->pNext;
     }
-    qCursor = qCursor -> pNext;
+    qCursor->pNext = toInsert;
   }
-  qCursor -> pNext = toInsert;
-  }
-  
-  tQueue -> qSize++;
+
+  tQueue->qSize++;
 }
 
-void EnqueueP(PriorityQueue* tQueue, int tValue, int pLevel) {
-  if (tQueue -> pType == 'C') {
+void EnqueueP(PriorityQueue *tQueue, int tValue, int pLevel) {
+  if (tQueue->pType == 'C') {
     EnqueuePMin(tQueue, tValue, pLevel);
-  }
-  else {
+  } else {
     EnqueuePMax(tQueue, tValue, pLevel);
   }
 }
 
-int DequeueP(PriorityQueue* tQueue) {
-	if (tQueue -> qHead == NULL) {
-		printf("Error! Index Out Of Range...\n");
+int DequeueP(PriorityQueue *tQueue) {
+  if (tQueue->qHead == NULL) {
+    printf("Error! Index Out Of Range...\n");
     exit(1);
-	}
+  }
 
-  PriorityNode* removedNode = tQueue -> qHead;
-  int removedValue = removedNode -> nValue;
-  tQueue -> qHead = removedNode -> pNext;
+  PriorityNode *removedNode = tQueue->qHead;
+  int removedValue = removedNode->nValue;
+  tQueue->qHead = removedNode->pNext;
   free(removedNode);
-  tQueue -> qSize--;
+  tQueue->qSize--;
 
   return removedValue;
 }
@@ -114,13 +106,13 @@ int DequeueP(PriorityQueue* tQueue) {
 int PeekP(PriorityQueue tQueue) {
   if (tQueue.qHead == NULL) {
     printf("Error: Index out of range!\n");
-		return -1;
+    return -1;
   }
-  return tQueue.qHead -> nValue;
+  return tQueue.qHead->nValue;
 }
 
 PriorityQueue PQ_Constructor(char pType) {
-	PriorityQueue PriorityQueue;
+  PriorityQueue PriorityQueue;
 
   if (pType != 'C' && pType != 'D') {
     printf("Error: Priority Type value isn't valid!\n");
@@ -129,15 +121,15 @@ PriorityQueue PQ_Constructor(char pType) {
     exit(2);
   }
 
-	PriorityQueue.qHead = NULL;
+  PriorityQueue.qHead = NULL;
   PriorityQueue.pType = pType;
-	PriorityQueue.qSize = 0;
+  PriorityQueue.qSize = 0;
 
-	PriorityQueue.DisplayPQueue = DisplayPQueue; 
+  PriorityQueue.DisplayPQueue = DisplayPQueue;
   PriorityQueue.FreePQueue = FreePQueue;
-	PriorityQueue.EnqueueP = EnqueueP;
-	PriorityQueue.DequeueP = DequeueP;
+  PriorityQueue.EnqueueP = EnqueueP;
+  PriorityQueue.DequeueP = DequeueP;
   PriorityQueue.PeekP = PeekP;
 
-	return PriorityQueue;
+  return PriorityQueue;
 }

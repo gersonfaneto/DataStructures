@@ -5,136 +5,129 @@
 void DisplayList(LinkedList tList) {
   if (tList.lHead == NULL) {
     printf("[]\n");
-  }
-  else {
-    Node* lCursor = tList.lHead;
+  } else {
+    Node *lCursor = tList.lHead;
     printf("[");
-    while (lCursor -> pNext != NULL) {
-      printf("%s, ", lCursor -> nValue);
-      lCursor = lCursor -> pNext;
+    while (lCursor->pNext != NULL) {
+      printf("%s, ", lCursor->nValue);
+      lCursor = lCursor->pNext;
     }
-    printf("%s]\n", lCursor -> nValue);
+    printf("%s]\n", lCursor->nValue);
   }
 }
 
-void FreeList(LinkedList* tList) {
-  if (tList -> lHead != NULL) {
-    Node* lCursor = tList -> lHead;
-    while (lCursor -> pNext != NULL) {
-      Node* currNode = lCursor;
-      lCursor = lCursor -> pNext;
+void FreeList(LinkedList *tList) {
+  if (tList->lHead != NULL) {
+    Node *lCursor = tList->lHead;
+    while (lCursor->pNext != NULL) {
+      Node *currNode = lCursor;
+      lCursor = lCursor->pNext;
       DestroyNode(currNode);
     }
     DestroyNode(lCursor);
-    tList -> lHead = NULL;
-    tList -> lSize = 0;
+    tList->lHead = NULL;
+    tList->lSize = 0;
   }
 }
 
-void InsertEnd(LinkedList* tList, char* tValue) {
-  Node* toInsert = CreateNode(tValue);
-  if (tList -> lHead == NULL) {
-    tList -> lHead = toInsert;
-  }
-  else {
-    Node* lCursor = tList -> lHead;
-    while (lCursor -> pNext != NULL) {
-      lCursor = lCursor -> pNext;
+void InsertEnd(LinkedList *tList, char *tValue) {
+  Node *toInsert = CreateNode(tValue);
+  if (tList->lHead == NULL) {
+    tList->lHead = toInsert;
+  } else {
+    Node *lCursor = tList->lHead;
+    while (lCursor->pNext != NULL) {
+      lCursor = lCursor->pNext;
     }
-    lCursor -> pNext = toInsert;
+    lCursor->pNext = toInsert;
   }
-  tList -> lSize++;
+  tList->lSize++;
 }
 
-void InsertBeg(LinkedList* tList, char* tValue) {
-  Node* toInsert = CreateNode(tValue);
-  if (tList -> lHead == NULL) {
-    tList -> lHead = toInsert;
+void InsertBeg(LinkedList *tList, char *tValue) {
+  Node *toInsert = CreateNode(tValue);
+  if (tList->lHead == NULL) {
+    tList->lHead = toInsert;
+  } else {
+    toInsert->pNext = tList->lHead;
+    tList->lHead = toInsert;
   }
-  else {
-    toInsert -> pNext = tList -> lHead;
-    tList -> lHead = toInsert;
-  }
-  tList -> lSize++;
+  tList->lSize++;
 }
 
-void InsertAt(LinkedList* tList, char* tValue, int tIndex) {
-  if (tIndex < 0 || tIndex > (tList -> lSize)) {
+void InsertAt(LinkedList *tList, char *tValue, int tIndex) {
+  if (tIndex < 0 || tIndex > (tList->lSize)) {
     printf("Error: Index out of range!\n");
     FreeList(tList);
     exit(1);
-  }
-  else if (tIndex == 0) {
+  } else if (tIndex == 0) {
     InsertBeg(tList, tValue);
     return;
-  }
-  else if (tIndex == tList -> lSize) {
+  } else if (tIndex == tList->lSize) {
     InsertEnd(tList, tValue);
     return;
   }
-  Node* lCursor = tList -> lHead;
-  Node* toInsert = CreateNode(tValue);
+  Node *lCursor = tList->lHead;
+  Node *toInsert = CreateNode(tValue);
   for (int i = 0; i < (tIndex - 1); i++) {
-    lCursor = lCursor -> pNext;
+    lCursor = lCursor->pNext;
   }
-  toInsert -> pNext = lCursor -> pNext;
-  lCursor -> pNext = toInsert;
-  tList -> lSize++;
+  toInsert->pNext = lCursor->pNext;
+  lCursor->pNext = toInsert;
+  tList->lSize++;
 }
 
-char* FindValue(LinkedList tList, int tIndex) {
+char *FindValue(LinkedList tList, int tIndex) {
   if (tIndex < 0 || tIndex > (tList.lSize - 1)) {
     printf("Error: Index out of range!\n");
     return NULL;
   }
-  Node* lCursor = tList.lHead;
+  Node *lCursor = tList.lHead;
   for (int i = 0; i < tIndex; i++) {
-    lCursor = lCursor -> pNext;
+    lCursor = lCursor->pNext;
   }
-  return lCursor -> nValue;
+  return lCursor->nValue;
 }
 
-int FindIndex(LinkedList tList, char* tValue) {
+int FindIndex(LinkedList tList, char *tValue) {
   if (tList.lHead != NULL) {
-    Node* lCursor = tList.lHead;
+    Node *lCursor = tList.lHead;
     int tIndex = 0;
     while (lCursor != NULL) {
-      if (lCursor -> nValue == tValue) {
+      if (lCursor->nValue == tValue) {
         return tIndex;
       }
-      lCursor = lCursor -> pNext;
+      lCursor = lCursor->pNext;
       tIndex++;
     }
   }
   return -1;
 }
 
-char* PopEnd(LinkedList* tList) {
-  char* removedValue = NULL;
-  if (tList -> lHead == NULL) {
+char *PopEnd(LinkedList *tList) {
+  char *removedValue = NULL;
+  if (tList->lHead == NULL) {
     printf("Error: Index out of range!\n");
     FreeList(tList);
     exit(3);
-  }
-  else if (tList -> lHead -> pNext == NULL) {
-    Node* toRemove = tList -> lHead;
-    removedValue = toRemove -> nValue;
+  } else if (tList->lHead->pNext == NULL) {
+    Node *toRemove = tList->lHead;
+    removedValue = toRemove->nValue;
 
-    tList -> lHead = NULL;
-    tList -> lSize = 0;
+    tList->lHead = NULL;
+    tList->lSize = 0;
 
     free(toRemove);
-  }
-  else {    
-    Node* lCursor = tList -> lHead;
-    while (lCursor -> pNext -> pNext != NULL) {
-      lCursor = lCursor -> pNext;
+  } else {
+    Node *lCursor = tList->lHead;
+    while (lCursor->pNext->pNext != NULL) {
+      lCursor = lCursor->pNext;
     }
-    Node* toRemove = lCursor -> pNext;
-    removedValue = toRemove -> nValue;
-    
-    lCursor -> pNext = NULL;
-    tList -> lSize--;
+    Node *toRemove = lCursor->pNext;
+    removedValue = toRemove->nValue;
+
+    lCursor->pNext = NULL;
+    tList->lSize--;
 
     free(toRemove);
   }
@@ -142,20 +135,19 @@ char* PopEnd(LinkedList* tList) {
   return removedValue;
 }
 
-char* PopBeg(LinkedList* tList) {
-  char* removedValue = NULL;
+char *PopBeg(LinkedList *tList) {
+  char *removedValue = NULL;
 
-  if (tList -> lHead == NULL) {
+  if (tList->lHead == NULL) {
     printf("Error! List Index Out Of Range...\n");
     FreeList(tList);
     exit(4);
-  }
-  else  {
-    Node* toRemove = tList -> lHead;
-    removedValue = toRemove -> nValue;
+  } else {
+    Node *toRemove = tList->lHead;
+    removedValue = toRemove->nValue;
 
-    tList -> lHead = tList -> lHead -> pNext;
-    tList -> lSize--;
+    tList->lHead = tList->lHead->pNext;
+    tList->lSize--;
 
     free(toRemove);
   }
@@ -163,32 +155,28 @@ char* PopBeg(LinkedList* tList) {
   return removedValue;
 }
 
-char* PopAt(LinkedList* tList, int targetIndex) {
-  char* removedValue = NULL;
+char *PopAt(LinkedList *tList, int targetIndex) {
+  char *removedValue = NULL;
 
-  if (targetIndex < 0 || targetIndex >= tList -> lSize ||
-        tList -> lHead == NULL) {
+  if (targetIndex < 0 || targetIndex >= tList->lSize || tList->lHead == NULL) {
     printf("Error! List Index Out Of Range...\n");
     FreeList(tList);
     exit(5);
-  }
-  else {
+  } else {
     if (targetIndex == 0) {
       removedValue = PopBeg(tList);
-    }
-    else if (targetIndex == (tList -> lSize - 1)) {
+    } else if (targetIndex == (tList->lSize - 1)) {
       removedValue = PopEnd(tList);
-    }
-    else {
-      Node* lCursor = tList -> lHead;
+    } else {
+      Node *lCursor = tList->lHead;
       for (int i = 0; i < targetIndex - 1; i++) {
-        lCursor = lCursor -> pNext;
+        lCursor = lCursor->pNext;
       }
-      Node* toRemove = lCursor -> pNext;
-      removedValue = toRemove -> nValue;
+      Node *toRemove = lCursor->pNext;
+      removedValue = toRemove->nValue;
 
-      lCursor -> pNext = lCursor -> pNext -> pNext;
-      tList -> lSize--;
+      lCursor->pNext = lCursor->pNext->pNext;
+      tList->lSize--;
 
       free(toRemove);
     }
@@ -216,4 +204,3 @@ LinkedList LL_Constructor(void) {
 
   return LinkesList;
 }
-

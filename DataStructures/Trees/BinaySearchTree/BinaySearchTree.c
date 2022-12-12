@@ -2,165 +2,148 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void FreeTree_Binary(BinaryNode** tCursor) {
+void FreeTree_Binary(BinaryNode **tCursor) {
   if ((*tCursor) != NULL) {
-    FreeTree_Binary(&(*tCursor) -> pLeft);
-    FreeTree_Binary(&(*tCursor) -> pRight);
+    FreeTree_Binary(&(*tCursor)->pLeft);
+    FreeTree_Binary(&(*tCursor)->pRight);
     DestroyBinaryNode((*tCursor));
     (*tCursor) = NULL;
   }
 }
 
-void DisplayTree_Binary(BinaryNode* tCursor, int inLevel) {
+void DisplayTree_Binary(BinaryNode *tCursor, int inLevel) {
   if (tCursor != NULL) {
-    DisplayTree_Binary(tCursor -> pRight, inLevel + 1);
+    DisplayTree_Binary(tCursor->pRight, inLevel + 1);
 
     printf("\n");
     for (int i = 0; i < inLevel; i++) {
       printf("    ");
     }
 
-    printf("%d\n", tCursor -> nValue);
+    printf("%d\n", tCursor->nValue);
 
-    DisplayTree_Binary(tCursor -> pLeft, inLevel + 1);
+    DisplayTree_Binary(tCursor->pLeft, inLevel + 1);
   }
 }
 
-void DisplayPreOder_Binary(BinaryNode* tCursor) {
+void DisplayPreOder_Binary(BinaryNode *tCursor) {
   if (tCursor != NULL) {
-    printf("%d ", tCursor -> nValue);
-    DisplayPreOder_Binary(tCursor -> pLeft);
-    DisplayPreOder_Binary(tCursor -> pRight);
+    printf("%d ", tCursor->nValue);
+    DisplayPreOder_Binary(tCursor->pLeft);
+    DisplayPreOder_Binary(tCursor->pRight);
   }
 }
 
-void DisplayInOrder_Binary(BinaryNode* tCursor) {
+void DisplayInOrder_Binary(BinaryNode *tCursor) {
   if (tCursor != NULL) {
-    DisplayInOrder_Binary(tCursor -> pLeft);
-    printf("%d ", tCursor -> nValue);
-    DisplayInOrder_Binary(tCursor -> pRight);
+    DisplayInOrder_Binary(tCursor->pLeft);
+    printf("%d ", tCursor->nValue);
+    DisplayInOrder_Binary(tCursor->pRight);
   }
 }
 
-void DisplayPostOrder_Binary(BinaryNode* tCursor) {
+void DisplayPostOrder_Binary(BinaryNode *tCursor) {
   if (tCursor != NULL) {
-    DisplayPostOrder_Binary(tCursor -> pLeft);
-    DisplayPostOrder_Binary(tCursor -> pRight);
-    printf("%d ", tCursor -> nValue);
+    DisplayPostOrder_Binary(tCursor->pLeft);
+    DisplayPostOrder_Binary(tCursor->pRight);
+    printf("%d ", tCursor->nValue);
   }
 }
 
-void InsertElement_Binary(BinaryNode** tCursor, int tValue) {
+void InsertElement_Binary(BinaryNode **tCursor, int tValue) {
   if ((*tCursor) == NULL) {
-    (*tCursor) = CreateBinaryNode(tValue); 
-  }
-  else if ((*tCursor) -> pRight == NULL && tValue > (*tCursor) -> nValue) {
-    (*tCursor) -> pRight = CreateBinaryNode(tValue);
-  }
-  else if ((*tCursor) -> pLeft == NULL && tValue <= (*tCursor) -> nValue) {
-    (*tCursor) -> pLeft = CreateBinaryNode(tValue);
-  }
-  else {
-    if (tValue > (*tCursor) -> nValue) {
-      InsertElement_Binary(&(*tCursor) -> pRight, tValue);
-    }
-    else {
-      InsertElement_Binary(&(*tCursor) -> pLeft, tValue);
+    (*tCursor) = CreateBinaryNode(tValue);
+  } else if ((*tCursor)->pRight == NULL && tValue > (*tCursor)->nValue) {
+    (*tCursor)->pRight = CreateBinaryNode(tValue);
+  } else if ((*tCursor)->pLeft == NULL && tValue <= (*tCursor)->nValue) {
+    (*tCursor)->pLeft = CreateBinaryNode(tValue);
+  } else {
+    if (tValue > (*tCursor)->nValue) {
+      InsertElement_Binary(&(*tCursor)->pRight, tValue);
+    } else {
+      InsertElement_Binary(&(*tCursor)->pLeft, tValue);
     }
   }
 }
 
-int GetMin_Binary(BinaryNode* tCursor) {
+int GetMin_Binary(BinaryNode *tCursor) {
   if (tCursor == NULL) {
     return -1;
+  } else if (tCursor->pLeft == NULL) {
+    return tCursor->nValue;
   }
-  else if (tCursor -> pLeft == NULL) {
-    return tCursor -> nValue;
-  }
-  return GetMin_Binary(tCursor -> pLeft);
+  return GetMin_Binary(tCursor->pLeft);
 }
 
-int GetMax_Binary(BinaryNode* tCursor) {
+int GetMax_Binary(BinaryNode *tCursor) {
   if (tCursor == NULL) {
     return -1;
+  } else if (tCursor->pRight == NULL) {
+    return tCursor->nValue;
   }
-  else if (tCursor -> pRight == NULL) {
-    return tCursor -> nValue;
-  }
-  return GetMax_Binary(tCursor -> pRight);
+  return GetMax_Binary(tCursor->pRight);
 }
 
-int QntNodes_Binary(BinaryNode* tCursor) {
+int QntNodes_Binary(BinaryNode *tCursor) {
   if (tCursor == NULL) {
     return 0;
   }
-  return 1 + QntNodes_Binary(tCursor -> pLeft) + QntNodes_Binary(tCursor -> pRight);
+  return 1 + QntNodes_Binary(tCursor->pLeft) + QntNodes_Binary(tCursor->pRight);
 }
 
-int GetHeight_Binary(BinaryNode* tCursor) {
+int GetHeight_Binary(BinaryNode *tCursor) {
   if (tCursor == NULL) {
     return -1;
-  }
-  else {
-    int leftHeight = GetHeight_Binary(tCursor -> pLeft);
-    int rightHeight = GetHeight_Binary(tCursor -> pRight);
+  } else {
+    int leftHeight = GetHeight_Binary(tCursor->pLeft);
+    int rightHeight = GetHeight_Binary(tCursor->pRight);
     if (leftHeight > rightHeight) {
       return leftHeight + 1;
-    }
-    else {
+    } else {
       return rightHeight + 1;
     }
   }
 }
 
-int FindElement_Binary(BinaryNode* tCursor, int tValue) {
+int FindElement_Binary(BinaryNode *tCursor, int tValue) {
   if (tCursor == NULL) {
     return 0;
-  }
-  else if (tCursor -> nValue == tValue) {
+  } else if (tCursor->nValue == tValue) {
     return 1;
-  }
-  else {
-    if (tValue > tCursor -> nValue) {
-      return FindElement_Binary(tCursor -> pRight, tValue);
-    }
-    else {
-      return FindElement_Binary(tCursor -> pLeft, tValue);
+  } else {
+    if (tValue > tCursor->nValue) {
+      return FindElement_Binary(tCursor->pRight, tValue);
+    } else {
+      return FindElement_Binary(tCursor->pLeft, tValue);
     }
   }
 }
 
-int RemoveElement_Binary(BinaryNode** tCursor, int tValue) {
+int RemoveElement_Binary(BinaryNode **tCursor, int tValue) {
   if (*tCursor == NULL) {
     printf("Error: Tree is empty or element wasn't found!\n");
     exit(3);
-  }
-  else if (tValue > (*tCursor) -> nValue) {
-    return RemoveElement_Binary(&(*tCursor) -> pRight, tValue);
-  }
-  else if (tValue < (*tCursor) -> nValue) {
-    return RemoveElement_Binary(&(*tCursor) -> pLeft, tValue);
-  }
-  else {
-    int removedValue = (*tCursor) -> nValue;
+  } else if (tValue > (*tCursor)->nValue) {
+    return RemoveElement_Binary(&(*tCursor)->pRight, tValue);
+  } else if (tValue < (*tCursor)->nValue) {
+    return RemoveElement_Binary(&(*tCursor)->pLeft, tValue);
+  } else {
+    int removedValue = (*tCursor)->nValue;
 
-    if ((*tCursor) -> pRight == NULL && (*tCursor) -> pLeft == NULL) {
+    if ((*tCursor)->pRight == NULL && (*tCursor)->pLeft == NULL) {
       DestroyBinaryNode((*tCursor)), (*tCursor) = NULL;
-    }
-    else if ((*tCursor) -> pLeft == NULL) {
-      BinaryNode* toRemove = (*tCursor);
-      (*tCursor) = (*tCursor) -> pRight;
+    } else if ((*tCursor)->pLeft == NULL) {
+      BinaryNode *toRemove = (*tCursor);
+      (*tCursor) = (*tCursor)->pRight;
       DestroyBinaryNode(toRemove);
-    }
-    else if ((*tCursor) -> pRight == NULL) {
-      BinaryNode* toRemove = (*tCursor);
-      (*tCursor) = (*tCursor) -> pLeft;
+    } else if ((*tCursor)->pRight == NULL) {
+      BinaryNode *toRemove = (*tCursor);
+      (*tCursor) = (*tCursor)->pLeft;
       DestroyBinaryNode(toRemove);
-    }
-    else {
-      int minValue = GetMin_Binary((*tCursor) -> pRight);
-      (*tCursor) -> nValue = minValue;
-      RemoveElement_Binary(&(*tCursor) -> pRight, minValue);
+    } else {
+      int minValue = GetMin_Binary((*tCursor)->pRight);
+      (*tCursor)->nValue = minValue;
+      RemoveElement_Binary(&(*tCursor)->pRight, minValue);
     }
     return removedValue;
   }

@@ -5,11 +5,11 @@ typedef struct PriorityNode {
 
   int nValue;
   int pLevel;
-  struct PriorityNode* pNext;
+  struct PriorityNode *pNext;
 
 } PriorityNode;
 
-PriorityNode* CreatePriorityNode(int tValue, int pLevel);
-void DestroyPriorityNode(PriorityNode* tNode);
+PriorityNode *CreatePriorityNode(int tValue, int pLevel);
+void DestroyPriorityNode(PriorityNode *tNode);
 
-#endif 
+#endif
