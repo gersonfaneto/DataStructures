@@ -3,6 +3,6 @@
 
 #include "../Common/Common.h"
 
-int BellmanFord(Graph tGraph, VPathsInfo* vPathsInfo, int sVertice);
+int BellmanFord(Graph tGraph, VPathsInfo *vPathsInfo, int sVertice);
 
 #endif

@@ -1,9 +1,8 @@
 #include "./Dijkstra.h"
-
-#include <stdlib.h>
 #include <stdio.h>
+#include <stdlib.h>
 
-void Dijkstra(Graph tGraph, VPathsInfo* vPathsInfo, int sVertice) {
+void Dijkstra(Graph tGraph, VPathsInfo *vPathsInfo, int sVertice) {
   PriorityQueue tQueue = PQ_Constructor('C');
   int nVertices = tGraph.nVertices;
 
@@ -12,7 +11,7 @@ void Dijkstra(Graph tGraph, VPathsInfo* vPathsInfo, int sVertice) {
 
   while (tQueue.qSize != 0) {
     int currV = tQueue.DequeueP(&tQueue);
-    int* adjList = tGraph.GetAdjList(tGraph, currV);
+    int *adjList = tGraph.GetAdjList(tGraph, currV);
 
     for (int i = 0; i < nVertices; i++) {
       if (adjList[i] != 0) {

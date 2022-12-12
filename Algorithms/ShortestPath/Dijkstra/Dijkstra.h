@@ -3,6 +3,6 @@
 
 #include "../Common/Common.h"
 
-void Dijkstra(Graph tGraph, VPathsInfo* vPathsInfo, int sVertice);
+void Dijkstra(Graph tGraph, VPathsInfo *vPathsInfo, int sVertice);
 
 #endif
